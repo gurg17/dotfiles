@@ -1,0 +1,23 @@
+# Distributed revision control system
+tap "FelixKratz/formulae"
+brew "sketchybar"
+
+tap "nikitabobko/tap"
+cask "aerospace"
+
+brew "git"
+brew "nvim"
+brew "openssl"
+brew "cmake"
+#brew "nushell"
+brew "fastfetch"
+brew "nvm"
+brew "starship"
+brew "zsh-autosuggestions"
+brew "zsh-autocomplete"
+
+cask "font-hack-nerd-font"
+cask "zen"
+cask "raycast"
+cask "obsidian"
+cask "ghostty"

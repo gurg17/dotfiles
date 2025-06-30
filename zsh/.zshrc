@@ -1,4 +1,3 @@
-
 source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 source $(brew --prefix)/share/zsh-autocomplete/zsh-autocomplete.plugin.zsh
 
@@ -24,7 +23,6 @@ alias nrb='npm run build'
 alias sz="source ~/.zshrc"
 alias ez="nvim ~/.config/zsh/.zshrc"
 
-
 # RTL
 alias gtui='cd ~/projects/ui-components-videoland/'
 alias gtlp='cd ~/projects/landing-frontend/'
@@ -45,4 +43,3 @@ alias ga='git add'
 alias gr='git reset'
 
 bindkey jj vi-cmd-mode
-

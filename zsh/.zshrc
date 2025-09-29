@@ -13,6 +13,7 @@ alias bbic="brew update &&\
 
 alias cl='clear'
 alias ff='fastfetch'
+alias x='exit'
 
 #NPM
 alias nrd='npm run dev'
@@ -21,25 +22,33 @@ alias nrb='npm run build'
 
 #DIR
 alias sz="source ~/.zshrc"
-alias ez="nvim ~/.config/zsh/.zshrc"
+alias nv='nvim'
+alias nvh="nv ."
+alias nvc='nv ~/.config'
 
 # RTL
 alias gtui='cd ~/projects/ui-components-videoland/'
 alias gtlp='cd ~/projects/landing-frontend/'
 alias gtbe='cd ~/projects/cc-backend-headless-cms/'
+alias nulp="gtlp && npm install @rtl_nl/ui-components-videoland"
 
 # Git
 alias gc="git commit -m"
 alias gca="git commit -a -m"
 alias gp="git push origin HEAD"
-alias gpo="git pull origin"
+alias gpo="git pull origin --no-rebase"
 alias gs="git status"
 alias glog="git log --graph --topo-order --pretty='%w(100,0,6)%C(yellow)%h%C(bold)%C(black)%d %C(cyan)%ar %C(green)%an%n%C(bold)%C(white)%s %N' --abbrev-commit"
 alias gd="git diff"
-alias gc="git checkout"
+alias gco="git checkout"
 alias gb='git branch'
 alias gba='git branch -a'
-alias ga='git add'
+alias ga='git add .'
 alias gr='git reset'
 
 bindkey jj vi-cmd-mode
+ff
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"

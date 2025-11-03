@@ -1,7 +1,7 @@
 return {
-    'nvim-mini/mini.hipatterns',
+    'echasnovski/mini.hipatterns',
     version = '*', 
     config = function ()
-        require('mini.hipatterns')
+        require('mini.hipatterns').setup()
     end
 }

@@ -58,7 +58,12 @@ if.app-name-regex-substring = 'safari'
 run = 'layout floating'
 
 [[on-window-detected]]
-if.app-name-regex-substring = 'google chrome'
+if.app-id = 'app.zen-browser.zen'
+if.window-title-regex-substring = 'Picture-in-Picture'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'microsoft teams'
 run = 'layout floating'
 
 # Possible values: (qwerty|dvorak)
@@ -154,7 +159,7 @@ alt-shift-4 = 'move-node-to-workspace 4 --focus-follows-window'
 alt-tab = 'workspace-back-and-forth'
 alt-shift-tab = 'move-workspace-to-monitor --wrap-around next'
 
-# See: https://nikitabobko.github.io/AeroSpace/commands#mode
+# See: https://nikitabobko.github.io/AeroSrace/commands#mode
 alt-shift-semicolon = 'mode service'
 alt-shift-enter = 'mode apps'
 

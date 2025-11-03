@@ -1,11 +1,1 @@
-# Environment files
 .env
-.env.*
-*.env
-*.env.*
-!.env.example
-!.env.*.example
-
-# direnv
-.envrc
-.direnv/

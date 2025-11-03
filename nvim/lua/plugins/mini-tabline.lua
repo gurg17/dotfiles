@@ -1,5 +1,5 @@
 return {
-	'nvim-mini/mini.tabline',
+	'echasnovski/mini.tabline',
 	version = '*',
 	config = function ()
 		require('mini.tabline').setup()

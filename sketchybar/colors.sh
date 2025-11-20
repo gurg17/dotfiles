@@ -1,0 +1,11 @@
+export BG1=0xff1F1F28
+export BG2=0xff363646
+export TEXT_COLOR=0xffDCD7BA
+export TEXT_COLOR2=0xff727169
+export ICON_COLOR=0xff957FB8
+export GREEN=0xff76946A
+export YELLOW=0xffDCA561
+export ORANGE=0xffFF9E3B
+export RED=0xffE82424
+export BLUE=0xff6A9589
+

@@ -30,6 +30,7 @@ brew "opencode"
 brew "pnpm"
 
 cask "brave-browser"
+cask "firefox@developer-edition"
 cask "raycast"
 cask "obsidian"
 cask "ghostty"

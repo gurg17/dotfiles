@@ -2,6 +2,20 @@
 
 source "$CONFIG_DIR/colors.sh"
 
+# Handle hover events
+case "$SENDER" in
+  "mouse.entered")
+    sketchybar --set system_monitor.battery popup.drawing=on \
+               --set system_monitor.network popup.drawing=off \
+               --set resources popup.drawing=off
+    exit 0
+    ;;
+  "mouse.exited")
+    sketchybar --set system_monitor.battery popup.drawing=off
+    exit 0
+    ;;
+esac
+
 PERCENTAGE="$(pmset -g batt | grep -Eo "\d+%" | cut -d% -f1)"
 CHARGING="$(pmset -g batt | grep 'AC Power')"
 
@@ -21,7 +35,7 @@ if [[ "$CHARGING" != "" ]]; then
   ICON="􀢋" COLOR="$BLUE"
 fi
 
-# The item invoking this script (name $NAME) will get its icon and label
+# The item invoking this script (name $NAME) will get its icon
 # updated with the current battery status
 
-sketchybar --set "$NAME" icon="$ICON" label="${PERCENTAGE}%" icon.color="${COLOR}"
+sketchybar --set "$NAME" icon="$ICON" icon.color="${COLOR}"

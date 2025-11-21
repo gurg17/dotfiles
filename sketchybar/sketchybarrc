@@ -44,9 +44,28 @@ default=(
 )
 sketchybar --default "${default[@]}"
 
+# -- Left Side Items --
+source $ITEM_DIR/spaces.sh
+source $ITEM_DIR/front_app.sh
+
+# Close popups when clicking on spaces or front_app
+for i in {1..5}; do
+  sketchybar --set space.$i click_script="aerospace workspace $i; sketchybar --set system_monitor.network popup.drawing=off"
+done
+sketchybar --set front_app click_script="sketchybar --set system_monitor.network popup.drawing=off"
+
 # -- Right Side Items --
+# Layout: Keyboard → Sensors → System Monitor [Network | Battery] → Calendar
 source $ITEM_DIR/calendar.sh
+source $ITEM_DIR/system_monitor.sh
 source $ITEM_DIR/sensors.sh
-source $ITEM_DIR/battery.sh
+source $ITEM_DIR/keyboard.sh
+
+# Close popups when clicking on other items
+sketchybar --set system_monitor.battery click_script="sketchybar --set system_monitor.network popup.drawing=off" \
+           --set calendar click_script="sketchybar --set system_monitor.network popup.drawing=off" \
+           --set sensors.volume click_script="sketchybar --set system_monitor.network popup.drawing=off" \
+           --set sensors.microphone click_script="sketchybar --set system_monitor.network popup.drawing=off" \
+           --set keyboard click_script="sketchybar --set system_monitor.network popup.drawing=off"
 
 sketchybar --update

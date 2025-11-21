@@ -3,13 +3,9 @@
 source "$CONFIG_DIR/colors.sh"
 
 keyboard=(
-    icon.padding_left=8
-    icon.padding_right=9
+    icon.padding_right=6
     label.drawing=off
-    background.color=$BG2
-    background.corner_radius=5
-    background.height=24
-    script="$PLUGIN_DIR/sensors/keyboard.sh"
+    script="$PLUGIN_DIR/keyboard.sh"
     click_script="osascript -e 'tell application \"System Events\" to keystroke \" \" using {control down, option down}'"
 )
 

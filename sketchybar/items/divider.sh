@@ -4,12 +4,12 @@ source "$CONFIG_DIR/colors.sh"
 
 divider=(
 	width=2 
+	padding_left=4
+	padding_right=4
 	icon.drawing=off 
 	label.drawing=off 
 	background.height=15 
 	background.corner_radius=1 
-	padding_left=4 
-	padding_right=4
 	background.color=$TEXT_COLOR2 
 )
 

@@ -30,7 +30,7 @@ sketchybar --bar height=37		\
 default=(
   padding_left=5
   padding_right=5
-  icon.font="SF Pro:Semibold:15.0"
+  icon.font="SF Pro:Semibold:16.0"
   label.font="SF Pro:Semibold:15.0"
   icon.color=$ICON_COLOR
   label.color=$TEXT_COLOR
@@ -58,8 +58,8 @@ sketchybar --set front_app click_script="sketchybar --set system_monitor.network
 # Layout: Keyboard → Sensors → System Monitor [Network | Battery] → Calendar
 source $ITEM_DIR/calendar.sh
 source $ITEM_DIR/system_monitor.sh
-source $ITEM_DIR/sensors.sh
 source $ITEM_DIR/keyboard.sh
+source $ITEM_DIR/sensors.sh
 
 # Close popups when clicking on other items
 sketchybar --set system_monitor.battery click_script="sketchybar --set system_monitor.network popup.drawing=off" \

@@ -27,8 +27,4 @@ for ((i=total-1; i>=0; i--)); do
 done
 
 # Create bracket for all system monitor items and dividers using regex pattern
-sketchybar --add bracket system_monitor '/system_monitor\..*/' \
-           --set system_monitor background.color=$BG2 \
-                               background.corner_radius=5 \
-                               background.height=24 \
-                               background.padding_right=5
+sketchybar --add bracket system_monitor '/system_monitor\..*/' 

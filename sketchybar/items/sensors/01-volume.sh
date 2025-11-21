@@ -1,7 +1,7 @@
 #!/bin/bash
 
-sketchybar --add item sensors.volume right                      \
+sketchybar --add item sensors.volume right								\
            --set sensors.volume script="$PLUGIN_DIR/sensors/volume.sh"	\
-                               label.drawing=off				\
-                               icon.padding_left=8	            \
+							   padding_right=8							\
+                               label.drawing=off						\
            --subscribe sensors.volume volume_change

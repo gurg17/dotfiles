@@ -6,9 +6,6 @@ BATT_INFO=$(pmset -g batt)
 PERCENTAGE=$(echo "$BATT_INFO" | grep -Eo "\d+%" | cut -d% -f1)
 CHARGING=$(echo "$BATT_INFO" | grep 'AC Power')
 
-# Get time remaining, filtering out unwanted text
-TIME_REMAINING=$(echo "$BATT_INFO" | grep -o "[0-9]\+:[0-9]\+" | head -1)
-
 if [ -z "$PERCENTAGE" ]; then
   sketchybar --set "$NAME" label="N/A" label.color=$TEXT_COLOR
   exit 0
@@ -21,19 +18,8 @@ else
   ICON="􁠸"
 fi
 
-# Build label with percentage
-LABEL="${PERCENTAGE}%"
-
-# Add time estimate if available and valid
-if [ -n "$TIME_REMAINING" ] && [ "$TIME_REMAINING" != "0:00" ]; then
-  if [ -n "$CHARGING" ]; then
-    LABEL="$LABEL • Charging ($TIME_REMAINING)"
-  else
-    LABEL="$LABEL • $TIME_REMAINING remaining"
-  fi
-elif [ -n "$CHARGING" ] && [ "$PERCENTAGE" -ge 95 ]; then
-  LABEL="$LABEL • Fully charged"
-fi
+# Build percentage label
+PERCENTAGE_LABEL="${PERCENTAGE}%"
 
 # Color based on percentage (matching battery.sh logic)
 if [ -n "$CHARGING" ]; then
@@ -50,7 +36,8 @@ else
   COLOR=$RED
 fi
 
+# Update percentage item
 sketchybar --set "$NAME" \
   icon="$ICON" \
   icon.color=$COLOR \
-  label="$LABEL"
+  label="$PERCENTAGE_LABEL"

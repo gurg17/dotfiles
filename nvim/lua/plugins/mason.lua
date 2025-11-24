@@ -85,9 +85,7 @@ return {
             }
 
             -- Setup mason-lspconfig with handlers
-            local mason_lspconfig = require('mason-lspconfig')
-            
-            mason_lspconfig.setup({
+            require('mason-lspconfig').setup({
                 ensure_installed = {
                     'lua_ls',
                     'vtsls',      -- TypeScript/JavaScript LSP (faster, more features)
@@ -98,18 +96,16 @@ return {
                     'tailwindcss',
                 },
                 automatic_installation = true,
-            })
-            
-            -- Setup all installed servers with our on_attach
-            mason_lspconfig.setup_handlers({
-                -- Default handler for all servers
-                function(server_name)
-                    local config = server_configs[server_name] or {}
-                    require('lspconfig')[server_name].setup(vim.tbl_extend('force', {
-                        on_attach = on_attach,
-                        capabilities = capabilities,
-                    }, config))
-                end,
+                handlers = {
+                    -- Default handler for all servers
+                    function(server_name)
+                        local config = server_configs[server_name] or {}
+                        require('lspconfig')[server_name].setup(vim.tbl_extend('force', {
+                            on_attach = on_attach,
+                            capabilities = capabilities,
+                        }, config))
+                    end,
+                },
             })
         end
     },

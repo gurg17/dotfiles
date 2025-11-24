@@ -24,8 +24,7 @@ vim.keymap.set("n", "<leader>Y", [["+Y]], { desc = "Copy Line to Clipboard" })
 -- Paste without replacing register
 vim.keymap.set("x", "<leader>p", [["_dP]], { desc = "Paste (keep register)" })
 
--- Delete to void register (don't pollute clipboard)
-vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]], { desc = "Delete (void register)" })
+-- Delete to void register is defined in mini-notify.lua with notification
 
 -- ============================================================================
 -- Buffer & Quit Management (<leader>q)

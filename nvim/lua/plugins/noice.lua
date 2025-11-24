@@ -3,6 +3,7 @@ return {
     event = 'VeryLazy',
     dependencies = {
         'MunifTanjim/nui.nvim',
+        'echasnovski/mini.notify',
     },
     config = function()
         require('noice').setup({
@@ -20,14 +21,19 @@ return {
                 inc_rename = false,
                 lsp_doc_border = false,
             },
-            -- Disable noice notifications (using mini.notify instead)
-            routes = {
-                {
-                    filter = {
-                        event = 'notify',
-                    },
-                    opts = { skip = true },
-                },
+            -- Disable noice's cmdline and message views (keep only search/command palette)
+            cmdline = {
+                enabled = true,  -- Keep command palette
+                view = "cmdline_popup",
+            },
+            messages = {
+                enabled = false,  -- Disable - let messages show normally
+            },
+            popupmenu = {
+                enabled = true,  -- Keep popup menu
+            },
+            notify = {
+                enabled = false,  -- Disable noice notifications - use mini.notify
             },
         })
     end

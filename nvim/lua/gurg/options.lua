@@ -23,3 +23,5 @@ vim.opt.signcolumn = "yes"
 vim.opt.isfname:append("@-@")
 
 vim.opt.updatetime = 50
+
+vim.opt.cmdheight = 0  -- Hide command line, messages become notifications

@@ -22,10 +22,10 @@ COLOR="$TEXT_COLOR"
 # else
 # 	# specify short layouts individually
 case "$LAYOUT" in
-	"Colemak DH Matrix") SHORT_LAYOUT="􀂙" COLOR="$BLUE";;
-	"Dutch") SHORT_LAYOUT="􀂕";;
-	*) SHORT_LAYOUT="􀫒";;
+	"Colemak DH Matrix") SHORT_LAYOUT="􀂙" COLOR="$BLUE"; LABEL="Colemak DH";;
+	"Dutch") SHORT_LAYOUT="􀂕"; LABEL="Dutch";;
+	*) SHORT_LAYOUT="􀫒"; LABEL="$LAYOUT";;
 esac
 # fi
 
-sketchybar --set "$NAME" icon="$SHORT_LAYOUT" icon.color="$COLOR"
+sketchybar --set "$NAME" icon="$SHORT_LAYOUT" icon.color="$COLOR" label="$LABEL"

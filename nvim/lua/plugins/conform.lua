@@ -25,13 +25,8 @@ return {
             timeout_ms = 500,
             lsp_fallback = true,
         },
-        formatters = {
-            prettierd = {
-                env = {
-                    PRETTIERD_DEFAULT_CONFIG = vim.fn.expand('~/.config/nvim/.prettierrc.json'),
-                },
-            },
-        },
+        -- Prettier/prettierd automatically finds and uses local configs:
+        -- .prettierrc, .prettierrc.json, prettier.config.js, etc.
     },
     init = function()
         vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"

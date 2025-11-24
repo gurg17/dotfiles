@@ -84,17 +84,11 @@ return {
                    },
             }
 
-            -- Setup ts_ls manually (using global npm installation)
-            require('lspconfig').ts_ls.setup({
-                on_attach = on_attach,
-                capabilities = capabilities,
-            })
-            
             -- Setup mason-lspconfig with handlers
             require('mason-lspconfig').setup({
                 ensure_installed = {
                     'lua_ls',
-                    -- ts_ls installed globally via npm, not managed by Mason
+                    'typescript-language-server',      -- TypeScript/JavaScript LSP
                     'eslint',     -- ESLint (reads local .eslintrc)
                     'html',
                     'cssls',

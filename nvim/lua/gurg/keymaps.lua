@@ -35,9 +35,11 @@ _G.setup_lsp_keymaps = function(client, bufnr)
 	-- vtsls-specific keymaps
 	if client.name == 'vtsls' then
 		vim.keymap.set('n', '<leader>lo', function()
-			vim.lsp.buf.execute_command({
-				command = 'typescript.organizeImports',
-				arguments = { vim.api.nvim_buf_get_name(0) }
+			vim.lsp.buf.code_action({
+				apply = true,
+				context = {
+					only = { 'source.organizeImports' },
+				}
 			})
 		end, vim.tbl_extend('force', opts, { desc = 'Organize Imports' }))
 
@@ -45,7 +47,7 @@ _G.setup_lsp_keymaps = function(client, bufnr)
 			vim.lsp.buf.code_action({
 				apply = true,
 				context = {
-					only = { 'source.addMissingImports.ts' },
+					only = { 'source.addMissingImports' },
 				}
 			})
 		end, vim.tbl_extend('force', opts, { desc = 'Add Missing Imports' }))
@@ -54,7 +56,7 @@ _G.setup_lsp_keymaps = function(client, bufnr)
 			vim.lsp.buf.code_action({
 				apply = true,
 				context = {
-					only = { 'source.removeUnused.ts' },
+					only = { 'source.removeUnused' },
 				}
 			})
 		end, vim.tbl_extend('force', opts, { desc = 'Remove Unused Imports' }))
@@ -63,7 +65,7 @@ _G.setup_lsp_keymaps = function(client, bufnr)
 			vim.lsp.buf.code_action({
 				apply = true,
 				context = {
-					only = { 'source.fixAll.ts' },
+					only = { 'source.fixAll' },
 				}
 			})
 		end, vim.tbl_extend('force', opts, { desc = 'Fix All' }))

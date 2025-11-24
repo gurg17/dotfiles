@@ -108,11 +108,13 @@ return {
                 },
             })
             
-            -- Manually configure already-installed servers
-            local lspconfig = require('lspconfig')
-            for _, server_name in ipairs({'vtsls', 'lua_ls', 'eslint', 'html', 'cssls', 'jsonls', 'tailwindcss'}) do
+            -- Force setup for all installed servers (mason-lspconfig doesn't always call handlers)
+            local mason_lspconfig = require('mason-lspconfig')
+            local installed_servers = mason_lspconfig.get_installed_servers()
+            
+            for _, server_name in ipairs(installed_servers) do
                 local config = server_configs[server_name] or {}
-                lspconfig[server_name].setup(vim.tbl_extend('force', {
+                require('lspconfig')[server_name].setup(vim.tbl_extend('force', {
                     on_attach = on_attach,
                     capabilities = capabilities,
                 }, config))

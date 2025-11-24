@@ -46,7 +46,6 @@ _G.setup_lsp_keymaps = function(client, bufnr)
 				apply = true,
 				context = {
 					only = { 'source.addMissingImports.ts' },
-					diagnostics = {},
 				}
 			})
 		end, vim.tbl_extend('force', opts, { desc = 'Add Missing Imports' }))
@@ -56,7 +55,6 @@ _G.setup_lsp_keymaps = function(client, bufnr)
 				apply = true,
 				context = {
 					only = { 'source.removeUnused.ts' },
-					diagnostics = {},
 				}
 			})
 		end, vim.tbl_extend('force', opts, { desc = 'Remove Unused Imports' }))
@@ -66,7 +64,6 @@ _G.setup_lsp_keymaps = function(client, bufnr)
 				apply = true,
 				context = {
 					only = { 'source.fixAll.ts' },
-					diagnostics = {},
 				}
 			})
 		end, vim.tbl_extend('force', opts, { desc = 'Fix All' }))
@@ -123,7 +120,7 @@ local function close_buffer()
 	-- Check if buffer has unsaved changes
 	if vim.bo.modified then
 		local choice = vim.fn.confirm("Buffer has unsaved changes. Close anyway?", "&Yes\n&No\n&Save", 2)
-		if choice == 1 then     -- Yes
+		if choice == 1 then -- Yes
 			force = true
 		elseif choice == 3 then -- Save
 			vim.cmd("w")

@@ -76,6 +76,9 @@ return {
 			}
 			vim.lsp.enable('vtsls')
 
+			-- Track which LSP progress events we've already notified about
+			local notified_progress = {}
+			
 			-- lua_ls
 			vim.lsp.config.lua_ls = {
 				cmd = { 'lua-language-server' },
@@ -100,11 +103,28 @@ return {
 						if result.value and result.value.kind then
 							local client = vim.lsp.get_client_by_id(ctx.client_id)
 							local client_name = client and client.name or "LSP"
+							local token = result.token
 							
-							if result.value.kind == "begin" then
-								vim.notify(string.format("Loading %s workspace...", client_name), vim.log.levels.INFO)
-							elseif result.value.kind == "end" then
-								vim.notify(string.format("%s workspace ready!", client_name), vim.log.levels.INFO)
+							-- Create unique key for this progress event
+							local key = string.format("%s_%s_%s", client_name, token, result.value.kind)
+							
+							-- Only notify if we haven't already notified for this event
+							if not notified_progress[key] then
+								if result.value.kind == "begin" then
+									vim.notify(string.format("Loading %s workspace...", client_name), vim.log.levels.INFO)
+									notified_progress[key] = true
+								elseif result.value.kind == "end" then
+									vim.notify(string.format("%s workspace ready!", client_name), vim.log.levels.INFO)
+									notified_progress[key] = true
+									-- Clear the token from tracking after completion
+									vim.defer_fn(function()
+										for k, _ in pairs(notified_progress) do
+											if k:match("^" .. client_name .. "_" .. token) then
+												notified_progress[k] = nil
+											end
+										end
+									end, 1000)
+								end
 							end
 							-- Skip "report" kind to avoid showing progress numbers
 						end

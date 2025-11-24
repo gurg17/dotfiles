@@ -1,7 +1,7 @@
 return {
 	'echasnovski/mini.tabline',
 	version = '*',
-	config = function ()
+	config = function()
 		require('mini.tabline').setup()
 	end
 }

@@ -8,81 +8,84 @@ vim.g.mapleader = " "
 -- ============================================================================
 -- This function is called by all LSP servers when they attach to a buffer
 _G.setup_lsp_keymaps = function(client, bufnr)
-    local opts = { buffer = bufnr, silent = true }
-    
-    -- <leader>l prefix - LSP Actions
-    vim.keymap.set('n', '<leader>la', vim.lsp.buf.code_action, vim.tbl_extend('force', opts, { desc = 'Code Action' }))
-    vim.keymap.set('n', '<leader>lr', vim.lsp.buf.rename, vim.tbl_extend('force', opts, { desc = 'Rename Symbol' }))
-    vim.keymap.set('n', '<leader>lf', function()
-        -- Try conform first, fallback to LSP
-        local ok, conform = pcall(require, 'conform')
-        if ok then
-            conform.format({ async = true, lsp_fallback = true })
-        else
-            vim.lsp.buf.format({ async = true })
-        end
-    end, vim.tbl_extend('force', opts, { desc = 'Format Buffer' }))
-    vim.keymap.set('n', '<leader>ls', vim.lsp.buf.signature_help, vim.tbl_extend('force', opts, { desc = 'Signature Help' }))
-    vim.keymap.set('n', '<leader>ld', vim.diagnostic.open_float, vim.tbl_extend('force', opts, { desc = 'Show Line Diagnostics' }))
-    vim.keymap.set('n', '<leader>lq', vim.diagnostic.setloclist, vim.tbl_extend('force', opts, { desc = 'Diagnostics to Location List' }))
-    
-    -- Hover documentation
-    vim.keymap.set('n', 'K', vim.lsp.buf.hover, vim.tbl_extend('force', opts, { desc = 'Hover Documentation' }))
-    
-    -- Diagnostic navigation
-    vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, vim.tbl_extend('force', opts, { desc = 'Previous Diagnostic' }))
-    vim.keymap.set('n', ']d', vim.diagnostic.goto_next, vim.tbl_extend('force', opts, { desc = 'Next Diagnostic' }))
-    
-    -- vtsls-specific keymaps
-    if client.name == 'vtsls' then
-        vim.keymap.set('n', '<leader>lo', function()
-            vim.lsp.buf.execute_command({
-                command = 'typescript.organizeImports',
-                arguments = { vim.api.nvim_buf_get_name(0) }
-            })
-        end, vim.tbl_extend('force', opts, { desc = 'Organize Imports' }))
-        
-        vim.keymap.set('n', '<leader>li', function()
-            vim.lsp.buf.code_action({
-                apply = true,
-                context = {
-                    only = { 'source.addMissingImports.ts' },
-                    diagnostics = {},
-                }
-            })
-        end, vim.tbl_extend('force', opts, { desc = 'Add Missing Imports' }))
-        
-        vim.keymap.set('n', '<leader>lu', function()
-            vim.lsp.buf.code_action({
-                apply = true,
-                context = {
-                    only = { 'source.removeUnused.ts' },
-                    diagnostics = {},
-                }
-            })
-        end, vim.tbl_extend('force', opts, { desc = 'Remove Unused Imports' }))
-        
-        vim.keymap.set('n', '<leader>lx', function()
-            vim.lsp.buf.code_action({
-                apply = true,
-                context = {
-                    only = { 'source.fixAll.ts' },
-                    diagnostics = {},
-                }
-            })
-        end, vim.tbl_extend('force', opts, { desc = 'Fix All' }))
-    end
-    
-    -- Visual indicator that LSP is attached
-    vim.notify(string.format('LSP attached: %s', client.name), vim.log.levels.DEBUG)
-    
-    -- Refresh mini.clue to show new buffer-local keymaps
-    vim.schedule(function()
-        local ok, miniclue = pcall(require, 'mini.clue')
-        if ok and miniclue.refresh then
-            miniclue.refresh()
-        end
-    end)
+	local opts = { buffer = bufnr, silent = true }
+
+	-- <leader>l prefix - LSP Actions
+	vim.keymap.set('n', '<leader>la', vim.lsp.buf.code_action, vim.tbl_extend('force', opts, { desc = 'Code Action' }))
+	vim.keymap.set('n', '<leader>lr', vim.lsp.buf.rename, vim.tbl_extend('force', opts, { desc = 'Rename Symbol' }))
+	vim.keymap.set('n', '<leader>lf', function()
+		-- Try conform first, fallback to LSP
+		local ok, conform = pcall(require, 'conform')
+		if ok then
+			conform.format({ async = true, lsp_fallback = true })
+		else
+			vim.lsp.buf.format({ async = true })
+		end
+	end, vim.tbl_extend('force', opts, { desc = 'Format Buffer' }))
+	vim.keymap.set('n', '<leader>ls', vim.lsp.buf.signature_help,
+		vim.tbl_extend('force', opts, { desc = 'Signature Help' }))
+	vim.keymap.set('n', '<leader>ld', vim.diagnostic.open_float,
+		vim.tbl_extend('force', opts, { desc = 'Show Line Diagnostics' }))
+	vim.keymap.set('n', '<leader>lq', vim.diagnostic.setloclist,
+		vim.tbl_extend('force', opts, { desc = 'Diagnostics to Location List' }))
+
+	-- Hover documentation
+	vim.keymap.set('n', 'K', vim.lsp.buf.hover, vim.tbl_extend('force', opts, { desc = 'Hover Documentation' }))
+
+	-- Diagnostic navigation
+	vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, vim.tbl_extend('force', opts, { desc = 'Previous Diagnostic' }))
+	vim.keymap.set('n', ']d', vim.diagnostic.goto_next, vim.tbl_extend('force', opts, { desc = 'Next Diagnostic' }))
+
+	-- vtsls-specific keymaps
+	if client.name == 'vtsls' then
+		vim.keymap.set('n', '<leader>lo', function()
+			vim.lsp.buf.execute_command({
+				command = 'typescript.organizeImports',
+				arguments = { vim.api.nvim_buf_get_name(0) }
+			})
+		end, vim.tbl_extend('force', opts, { desc = 'Organize Imports' }))
+
+		vim.keymap.set('n', '<leader>li', function()
+			vim.lsp.buf.code_action({
+				apply = true,
+				context = {
+					only = { 'source.addMissingImports.ts' },
+					diagnostics = {},
+				}
+			})
+		end, vim.tbl_extend('force', opts, { desc = 'Add Missing Imports' }))
+
+		vim.keymap.set('n', '<leader>lu', function()
+			vim.lsp.buf.code_action({
+				apply = true,
+				context = {
+					only = { 'source.removeUnused.ts' },
+					diagnostics = {},
+				}
+			})
+		end, vim.tbl_extend('force', opts, { desc = 'Remove Unused Imports' }))
+
+		vim.keymap.set('n', '<leader>lx', function()
+			vim.lsp.buf.code_action({
+				apply = true,
+				context = {
+					only = { 'source.fixAll.ts' },
+					diagnostics = {},
+				}
+			})
+		end, vim.tbl_extend('force', opts, { desc = 'Fix All' }))
+	end
+
+	-- Visual indicator that LSP is attached
+	vim.notify(string.format('LSP attached: %s', client.name), vim.log.levels.DEBUG)
+
+	-- Refresh mini.clue to show new buffer-local keymaps
+	vim.schedule(function()
+		local ok, miniclue = pcall(require, 'mini.clue')
+		if ok and miniclue.refresh then
+			miniclue.refresh()
+		end
+	end)
 end
 
 -- ============================================================================
@@ -113,29 +116,29 @@ vim.keymap.set("x", "<leader>p", [["_dP]], { desc = "Paste (keep register)" })
 -- ============================================================================
 -- Smart buffer close with unsaved warning
 local function close_buffer()
-    local force = false
-    
-    -- Check if buffer has unsaved changes
-    if vim.bo.modified then
-        local choice = vim.fn.confirm("Buffer has unsaved changes. Close anyway?", "&Yes\n&No\n&Save", 2)
-        if choice == 1 then -- Yes
-            force = true
-        elseif choice == 3 then -- Save
-            vim.cmd("w")
-        else
-            return -- No, cancel
-        end
-    end
-    
-    -- Check if this is the last buffer
-    local buffers = vim.fn.getbufinfo({buflisted = 1})
-    if #buffers > 1 then
-        -- Switch to previous buffer, then delete the one we were on
-        vim.cmd(force and "bp|bd! #" or "bp|bd #")
-    else
-        -- Last buffer - just delete it (creates empty buffer)
-        vim.cmd(force and "bd!" or "bd")
-    end
+	local force = false
+
+	-- Check if buffer has unsaved changes
+	if vim.bo.modified then
+		local choice = vim.fn.confirm("Buffer has unsaved changes. Close anyway?", "&Yes\n&No\n&Save", 2)
+		if choice == 1 then     -- Yes
+			force = true
+		elseif choice == 3 then -- Save
+			vim.cmd("w")
+		else
+			return -- No, cancel
+		end
+	end
+
+	-- Check if this is the last buffer
+	local buffers = vim.fn.getbufinfo({ buflisted = 1 })
+	if #buffers > 1 then
+		-- Switch to previous buffer, then delete the one we were on
+		vim.cmd(force and "bp|bd! #" or "bp|bd #")
+	else
+		-- Last buffer - just delete it (creates empty buffer)
+		vim.cmd(force and "bd!" or "bd")
+	end
 end
 
 vim.keymap.set("n", "<leader>qq", close_buffer, { desc = "Close Buffer" })

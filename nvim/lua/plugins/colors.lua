@@ -1,8 +1,8 @@
 function SetColor(color)
-    vim.cmd.colorscheme(color)
+	vim.cmd.colorscheme(color)
 
-    vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
-    vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+	vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+	vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
 end
 
 return {
@@ -19,7 +19,7 @@ return {
 		lazy = false,
 		priority = 1000,
 		config = function()
-			SetColor('kanagawa')		
+			SetColor('kanagawa')
 		end,
 	}
 }

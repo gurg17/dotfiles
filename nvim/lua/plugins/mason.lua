@@ -91,7 +91,11 @@ return {
 						},
 						telemetry = { enable = false },
 						completion = { callSnippet = 'Replace' },
+						hint = { enable = false },  -- Disable inlay hints
 					}
+				},
+				handlers = {
+					['$/progress'] = function() end,  -- Disable loading workspace notifications
 				}
 			}
 			vim.lsp.enable('lua_ls')

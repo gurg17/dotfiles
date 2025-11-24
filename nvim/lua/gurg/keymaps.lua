@@ -141,26 +141,6 @@ vim.keymap.set("n", "<leader>Q", "<cmd>qa!<cr>", { desc = "Quit Neovim (no save)
 vim.keymap.set("n", "<leader>w", "<cmd>w<cr>", { desc = "Save File" })
 vim.keymap.set("n", "<leader>wq", "<cmd>w|bp|bd! #<cr>", { desc = "Save & Close Buffer" })
 
--- ============================================================================
--- Format (Global - always available, uses Mason-installed formatters)
--- ============================================================================
-vim.keymap.set("n", "=", function()
-    local ok, conform = pcall(require, 'conform')
-    if ok then
-        conform.format({ async = true, lsp_fallback = true })
-    else
-        vim.lsp.buf.format({ async = true })
-    end
-end, { desc = "Format Buffer" })
-
-vim.keymap.set("n", "<leader>f", function()
-    local ok, conform = pcall(require, 'conform')
-    if ok then
-        conform.format({ async = true, lsp_fallback = true })
-    else
-        vim.lsp.buf.format({ async = true })
-    end
-end, { desc = "Format Buffer" })
 
 -- ============================================================================
 -- Search & Replace (<leader>s)

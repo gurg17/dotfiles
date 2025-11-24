@@ -107,10 +107,33 @@ return {
                 capabilities = capabilities,
             })
             
-            lspconfig.lua_ls.setup(vim.tbl_extend('force', {
+            lspconfig.lua_ls.setup({
                 on_attach = on_attach,
                 capabilities = capabilities,
-            }, server_configs.lua_ls or {}))
+                settings = {
+                    Lua = {
+                        runtime = {
+                            version = 'LuaJIT',
+                        },
+                        diagnostics = {
+                            globals = { 'vim' },
+                        },
+                        workspace = {
+                            library = {
+                                vim.env.VIMRUNTIME,
+                                "${3rd}/luv/library",
+                            },
+                            checkThirdParty = false,
+                        },
+                        telemetry = {
+                            enable = false,
+                        },
+                        completion = {
+                            callSnippet = 'Replace',
+                        },
+                    }
+                }
+            })
             
             lspconfig.eslint.setup({
                 on_attach = on_attach,

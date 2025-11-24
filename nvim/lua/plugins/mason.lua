@@ -30,13 +30,20 @@ return {
                 _G.setup_lsp_keymaps(client, bufnr)
             end
 
-            -- Configure diagnostic display
+            -- Configure diagnostic display (new API)
             vim.diagnostic.config({
                 virtual_text = {
                     prefix = '●',
                     source = 'if_many',
                 },
-                signs = true,
+                signs = {
+                    text = {
+                        [vim.diagnostic.severity.ERROR] = ' ',
+                        [vim.diagnostic.severity.WARN] = ' ',
+                        [vim.diagnostic.severity.HINT] = ' ',
+                        [vim.diagnostic.severity.INFO] = ' ',
+                    },
+                },
                 underline = true,
                 update_in_insert = false,
                 severity_sort = true,
@@ -47,13 +54,6 @@ return {
                     prefix = '',
                 },
             })
-
-            -- Setup diagnostic signs
-            local signs = { Error = ' ', Warn = ' ', Hint = ' ', Info = ' ' }
-            for type, icon in pairs(signs) do
-                local hl = 'DiagnosticSign' .. type
-                vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-            end
 
             -- Server-specific configurations
             local server_configs = {

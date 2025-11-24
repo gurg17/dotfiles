@@ -98,6 +98,11 @@ return {
                 handlers = {
                     -- Default handler for all servers
                     function(server_name)
+                        -- Skip tsserver/ts_ls - handled by typescript-tools
+                        if server_name == 'tsserver' or server_name == 'ts_ls' then
+                            return
+                        end
+                        
                         local config = server_configs[server_name] or {}
                         require('lspconfig')[server_name].setup(vim.tbl_extend('force', {
                             on_attach = on_attach,

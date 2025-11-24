@@ -88,7 +88,7 @@ return {
             require('mason-lspconfig').setup({
                 ensure_installed = {
                     'lua_ls',
-                    'typescript-language-server',      -- TypeScript/JavaScript LSP
+                    'vtsls',      -- TypeScript/JavaScript LSP (faster, more features)
                     'eslint',     -- ESLint (reads local .eslintrc)
                     'html',
                     'cssls',

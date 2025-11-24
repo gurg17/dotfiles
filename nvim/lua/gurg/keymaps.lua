@@ -10,9 +10,9 @@ vim.g.mapleader = " "
 _G.setup_lsp_keymaps = function(client, bufnr)
 	local opts = { buffer = bufnr, silent = true }
 
-	-- <leader>l prefix - LSP Actions
-	vim.keymap.set('n', '<leader>la', vim.lsp.buf.code_action, vim.tbl_extend('force', opts, { desc = 'Code Action' }))
-	vim.keymap.set('n', '<leader>lr', vim.lsp.buf.rename, vim.tbl_extend('force', opts, { desc = 'Rename Symbol' }))
+	-- <leader>l prefix - LSP Actions (buffer-local)
+	vim.keymap.set('n', '<leader>la', vim.lsp.buf.code_action, vim.tbl_extend('force', opts, { desc = '[LSP] 󰌵 Code Action' }))
+	vim.keymap.set('n', '<leader>lr', vim.lsp.buf.rename, vim.tbl_extend('force', opts, { desc = '[LSP] 󰑕 Rename Symbol' }))
 	vim.keymap.set('n', '<leader>lf', function()
 		-- Try conform first, fallback to LSP
 		local ok, conform = pcall(require, 'conform')
@@ -21,13 +21,13 @@ _G.setup_lsp_keymaps = function(client, bufnr)
 		else
 			vim.lsp.buf.format({ async = true })
 		end
-	end, vim.tbl_extend('force', opts, { desc = 'Format Buffer' }))
+	end, vim.tbl_extend('force', opts, { desc = '[LSP] 󰉼 Format Buffer' }))
 	vim.keymap.set('n', '<leader>ls', vim.lsp.buf.signature_help,
-		vim.tbl_extend('force', opts, { desc = 'Signature Help' }))
+		vim.tbl_extend('force', opts, { desc = '[LSP] 󰋖 Signature Help' }))
 	vim.keymap.set('n', '<leader>ld', vim.diagnostic.open_float,
-		vim.tbl_extend('force', opts, { desc = 'Show Line Diagnostics' }))
+		vim.tbl_extend('force', opts, { desc = '[LSP] 󰙵 Line Diagnostics' }))
 	vim.keymap.set('n', '<leader>lq', vim.diagnostic.setloclist,
-		vim.tbl_extend('force', opts, { desc = 'Diagnostics to Location List' }))
+		vim.tbl_extend('force', opts, { desc = '[LSP] 󰁨 Diagnostics List' }))
 
 	-- Hover documentation
 	vim.keymap.set('n', 'K', vim.lsp.buf.hover, vim.tbl_extend('force', opts, { desc = 'Hover Documentation' }))
@@ -43,7 +43,7 @@ _G.setup_lsp_keymaps = function(client, bufnr)
 				command = 'typescript.organizeImports',
 				arguments = { vim.api.nvim_buf_get_name(0) }
 			})
-		end, vim.tbl_extend('force', opts, { desc = 'Organize Imports' }))
+		end, vim.tbl_extend('force', opts, { desc = '[LSP] 󰒺 Organize Imports' }))
 
 		vim.keymap.set('n', '<leader>li', function()
 			vim.lsp.buf.code_action({
@@ -53,7 +53,7 @@ _G.setup_lsp_keymaps = function(client, bufnr)
 					diagnostics = {},
 				}
 			})
-		end, vim.tbl_extend('force', opts, { desc = 'Add Missing Imports' }))
+		end, vim.tbl_extend('force', opts, { desc = '[LSP] 󰋺 Add Missing Imports' }))
 
 		vim.keymap.set('n', '<leader>lu', function()
 			vim.lsp.buf.code_action({
@@ -63,7 +63,7 @@ _G.setup_lsp_keymaps = function(client, bufnr)
 					diagnostics = {},
 				}
 			})
-		end, vim.tbl_extend('force', opts, { desc = 'Remove Unused Imports' }))
+		end, vim.tbl_extend('force', opts, { desc = '[LSP] 󰆴 Remove Unused Imports' }))
 
 		vim.keymap.set('n', '<leader>lx', function()
 			vim.lsp.buf.code_action({
@@ -73,7 +73,7 @@ _G.setup_lsp_keymaps = function(client, bufnr)
 					diagnostics = {},
 				}
 			})
-		end, vim.tbl_extend('force', opts, { desc = 'Fix All' }))
+		end, vim.tbl_extend('force', opts, { desc = '[LSP] 󰁨 Fix All' }))
 	end
 
 	-- Visual indicator that LSP is attached

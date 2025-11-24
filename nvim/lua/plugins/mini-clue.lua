@@ -47,6 +47,11 @@ return {
 				{ mode = 'n', keys = '<Leader>t', desc = '+Test' },
 				{ mode = 'n', keys = '<Leader>w', desc = '+Write/Save' },
 
+				-- Explicit global <leader>l keymaps (will be grouped at top)
+				{ mode = 'n', keys = '<Leader>lg', desc = '󰊢 LazyGit' },
+				{ mode = 'n', keys = '<Leader>lm', desc = '󰢛 Mason (LSP Manager)' },
+				{ mode = 'n', keys = '<Leader>ln', desc = '󰒲 Lazy (Plugin Manager)' },
+
 				-- Built-in Vim clue generators
 				miniclue.gen_clues.builtin_completion(),
 				miniclue.gen_clues.marks(),

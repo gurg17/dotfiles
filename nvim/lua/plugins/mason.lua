@@ -95,7 +95,17 @@ return {
 					}
 				},
 				handlers = {
-					['$/progress'] = function() end,  -- Disable loading workspace notifications
+					['$/progress'] = function(_, result, ctx)
+						-- Route progress notifications to mini.notify
+						if result.value and result.value.kind then
+							local message = result.value.message or result.value.title or "Loading..."
+							if result.value.kind == "begin" then
+								vim.notify(message, vim.log.levels.INFO)
+							elseif result.value.kind == "end" then
+								vim.notify("Workspace ready!", vim.log.levels.INFO)
+							end
+						end
+					end,
 				}
 			}
 			vim.lsp.enable('lua_ls')

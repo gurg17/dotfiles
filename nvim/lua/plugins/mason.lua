@@ -96,29 +96,46 @@ return {
                     'tailwindcss',
                 },
                 automatic_installation = true,
-                handlers = {
-                    -- Default handler for all servers
-                    function(server_name)
-                        local config = server_configs[server_name] or {}
-                        require('lspconfig')[server_name].setup(vim.tbl_extend('force', {
-                            on_attach = on_attach,
-                            capabilities = capabilities,
-                        }, config))
-                    end,
-                },
             })
             
-            -- Force setup for all installed servers (mason-lspconfig doesn't always call handlers)
-            local mason_lspconfig = require('mason-lspconfig')
-            local installed_servers = mason_lspconfig.get_installed_servers()
+            -- Configure each installed server with our on_attach
+            local lspconfig = require('lspconfig')
             
-            for _, server_name in ipairs(installed_servers) do
-                local config = server_configs[server_name] or {}
-                require('lspconfig')[server_name].setup(vim.tbl_extend('force', {
-                    on_attach = on_attach,
-                    capabilities = capabilities,
-                }, config))
-            end
+            -- Manually setup each server to ensure on_attach is called
+            lspconfig.vtsls.setup({
+                on_attach = on_attach,
+                capabilities = capabilities,
+            })
+            
+            lspconfig.lua_ls.setup(vim.tbl_extend('force', {
+                on_attach = on_attach,
+                capabilities = capabilities,
+            }, server_configs.lua_ls or {}))
+            
+            lspconfig.eslint.setup({
+                on_attach = on_attach,
+                capabilities = capabilities,
+            })
+            
+            lspconfig.html.setup({
+                on_attach = on_attach,
+                capabilities = capabilities,
+            })
+            
+            lspconfig.cssls.setup({
+                on_attach = on_attach,
+                capabilities = capabilities,
+            })
+            
+            lspconfig.jsonls.setup({
+                on_attach = on_attach,
+                capabilities = capabilities,
+            })
+            
+            lspconfig.tailwindcss.setup({
+                on_attach = on_attach,
+                capabilities = capabilities,
+            })
         end
     },
     {

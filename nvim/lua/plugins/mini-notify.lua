@@ -33,8 +33,9 @@ return {
 						DEBUG = { duration = 2000 },
 						TRACE = { duration = 2000 },
 					})
-					-- Test notification to verify mini.notify is working
-					vim.notify("mini.notify loaded!", vim.log.levels.INFO)
+					-- Notify current working directory
+					local cwd = vim.fn.getcwd()
+					vim.notify(string.format("CWD: %s", cwd), vim.log.levels.INFO)
 				end)
 			end,
 		})

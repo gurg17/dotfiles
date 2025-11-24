@@ -76,10 +76,6 @@ return {
 			}
 			vim.lsp.enable('vtsls')
 
-			-- Track which LSP progress events we've already notified about
-			local notified_progress = {}
-			local progress_notifs = {}  -- Store notification IDs
-			
 			-- lua_ls
 			vim.lsp.config.lua_ls = {
 				cmd = { 'lua-language-server' },
@@ -95,45 +91,8 @@ return {
 						},
 						telemetry = { enable = false },
 						completion = { callSnippet = 'Replace' },
-						hint = { enable = false },  -- Disable inlay hints
+						hint = { enable = false },
 					}
-				},
-				handlers = {
-					['$/progress'] = function(_, result, ctx)
-						-- Route progress notifications to mini.notify with LSP server name
-						if result.value and result.value.kind then
-							local client = vim.lsp.get_client_by_id(ctx.client_id)
-							local client_name = client and client.name or "LSP"
-							local token = result.token
-							
-							-- Create unique key for this progress event
-							local key = string.format("%s_%s_%s", client_name, token, result.value.kind)
-							
-							-- Only notify if we haven't already notified for this event
-							if not notified_progress[key] then
-								if result.value.kind == "begin" then
-									-- Store the notification so it doesn't get replaced
-									local notif_id = vim.notify(string.format("Loading %s workspace...", client_name), vim.log.levels.INFO)
-									progress_notifs[token] = notif_id
-									notified_progress[key] = true
-								elseif result.value.kind == "end" then
-									-- Use DEBUG level so it shows as different notification
-									vim.notify(string.format("%s workspace ready!", client_name), vim.log.levels.DEBUG)
-									notified_progress[key] = true
-									-- Clear the token from tracking after completion
-									vim.defer_fn(function()
-										for k, _ in pairs(notified_progress) do
-											if k:match("^" .. client_name .. "_" .. token) then
-												notified_progress[k] = nil
-											end
-										end
-										progress_notifs[token] = nil
-									end, 1000)
-								end
-							end
-							-- Skip "report" kind to avoid showing progress numbers
-						end
-					end,
 				}
 			}
 			vim.lsp.enable('lua_ls')

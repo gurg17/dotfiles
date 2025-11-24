@@ -47,10 +47,10 @@ return {
 				{ mode = 'n', keys = '<Leader>t', desc = '+Test' },
 				{ mode = 'n', keys = '<Leader>w', desc = '+Write/Save' },
 
-				-- Explicit global <leader>l keymaps (numbers sort before letters)
-				{ mode = 'n', keys = '<Leader>l1', desc = 'LazyGit' },
-				{ mode = 'n', keys = '<Leader>l2', desc = 'Lazy (Plugins)' },
-				{ mode = 'n', keys = '<Leader>l3', desc = 'Mason (LSP)' },
+				-- Explicit global <leader>l keymaps (with [Global] prefix)
+				{ mode = 'n', keys = '<Leader>lg', desc = '[Global] LazyGit' },
+				{ mode = 'n', keys = '<Leader>lm', desc = '[Global] Mason' },
+				{ mode = 'n', keys = '<Leader>ln', desc = '[Global] Lazy' },
 
 				-- Built-in Vim clue generators
 				miniclue.gen_clues.builtin_completion(),

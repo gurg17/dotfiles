@@ -164,8 +164,8 @@ vim.keymap.set("n", "<leader>sr", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left>
 vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true, desc = "Make Executable" })
 
 -- ============================================================================
--- LSP & Plugin Management (using numbers to sort before LSP letter keymaps)
+-- LSP & Plugin Management
 -- ============================================================================
-vim.keymap.set("n", "<leader>l1", "<cmd>LazyGit<CR>", { desc = "LazyGit" })
-vim.keymap.set("n", "<leader>l2", "<cmd>Lazy<CR>", { desc = "Lazy (Plugins)" })
-vim.keymap.set("n", "<leader>l3", "<cmd>Mason<CR>", { desc = "Mason (LSP)" })
+vim.keymap.set("n", "<leader>lg", "<cmd>LazyGit<CR>", { desc = "[Global] LazyGit" })
+vim.keymap.set("n", "<leader>lm", "<cmd>Mason<CR>", { desc = "[Global] Mason" })
+vim.keymap.set("n", "<leader>ln", "<cmd>Lazy<CR>", { desc = "[Global] Lazy" })

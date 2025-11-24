@@ -5,8 +5,13 @@ return {
     config = function()
         require('typescript-tools').setup({
             on_attach = function(client, bufnr)
-                -- Validate buffer
-                if not vim.api.nvim_buf_is_valid(bufnr) then
+                -- Validate buffer exists and has a valid name
+                if not bufnr or not vim.api.nvim_buf_is_valid(bufnr) then
+                    return
+                end
+                
+                local bufname = vim.api.nvim_buf_get_name(bufnr)
+                if not bufname or bufname == '' then
                     return
                 end
                 
@@ -27,14 +32,27 @@ return {
             handlers = {
                 -- Suppress invalid buffer errors
                 ["textDocument/publishDiagnostics"] = function(err, result, ctx, config)
-                    if not result or not result.diagnostics then
+                    if not result or not result.diagnostics or not result.uri then
                         return
                     end
+                    
                     -- Validate buffer before processing
-                    local bufnr = vim.uri_to_bufnr(result.uri)
-                    if not vim.api.nvim_buf_is_valid(bufnr) then
+                    local ok, bufnr = pcall(vim.uri_to_bufnr, result.uri)
+                    if not ok or not bufnr or not vim.api.nvim_buf_is_valid(bufnr) then
                         return
                     end
+                    
+                    -- Validate buffer has a valid name
+                    local bufname = vim.api.nvim_buf_get_name(bufnr)
+                    if not bufname or bufname == '' then
+                        return
+                    end
+                    
+                    -- Only process diagnostics if buffer is loaded
+                    if not vim.api.nvim_buf_is_loaded(bufnr) then
+                        return
+                    end
+                    
                     pcall(vim.lsp.handlers["textDocument/publishDiagnostics"], err, result, ctx, config)
                 end,
             },

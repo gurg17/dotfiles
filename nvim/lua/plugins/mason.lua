@@ -98,66 +98,83 @@ return {
                 automatic_installation = true,
             })
             
-            -- Configure each installed server with our on_attach
-            local lspconfig = require('lspconfig')
+            -- Configure each installed server using vim.lsp.config (new API)
+            -- vtsls
+            vim.lsp.config.vtsls = {
+                cmd = { 'vtsls', '--stdio' },
+                filetypes = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' },
+                root_markers = { 'package.json', 'tsconfig.json', 'jsconfig.json', '.git' },
+            }
+            vim.lsp.enable('vtsls')
             
-            -- Manually setup each server to ensure on_attach is called
-            lspconfig.vtsls.setup({
-                on_attach = on_attach,
-                capabilities = capabilities,
-            })
-            
-            lspconfig.lua_ls.setup({
-                on_attach = on_attach,
-                capabilities = capabilities,
+            -- lua_ls
+            vim.lsp.config.lua_ls = {
+                cmd = { 'lua-language-server' },
+                filetypes = { 'lua' },
+                root_markers = { '.luarc.json', '.luarc.jsonc', '.luacheckrc', '.stylua.toml', 'stylua.toml', 'selene.toml', 'selene.yml', '.git' },
                 settings = {
                     Lua = {
-                        runtime = {
-                            version = 'LuaJIT',
-                        },
-                        diagnostics = {
-                            globals = { 'vim' },
-                        },
+                        runtime = { version = 'LuaJIT' },
+                        diagnostics = { globals = { 'vim' } },
                         workspace = {
-                            library = {
-                                vim.env.VIMRUNTIME,
-                                "${3rd}/luv/library",
-                            },
+                            library = { vim.env.VIMRUNTIME, "${3rd}/luv/library" },
                             checkThirdParty = false,
                         },
-                        telemetry = {
-                            enable = false,
-                        },
-                        completion = {
-                            callSnippet = 'Replace',
-                        },
+                        telemetry = { enable = false },
+                        completion = { callSnippet = 'Replace' },
                     }
                 }
-            })
+            }
+            vim.lsp.enable('lua_ls')
             
-            lspconfig.eslint.setup({
-                on_attach = on_attach,
-                capabilities = capabilities,
-            })
+            -- eslint
+            vim.lsp.config.eslint = {
+                cmd = { 'vscode-eslint-language-server', '--stdio' },
+                filetypes = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' },
+                root_markers = { '.eslintrc', '.eslintrc.js', '.eslintrc.json', 'eslint.config.js', 'package.json', '.git' },
+            }
+            vim.lsp.enable('eslint')
             
-            lspconfig.html.setup({
-                on_attach = on_attach,
-                capabilities = capabilities,
-            })
+            -- html
+            vim.lsp.config.html = {
+                cmd = { 'vscode-html-language-server', '--stdio' },
+                filetypes = { 'html' },
+                root_markers = { 'package.json', '.git' },
+            }
+            vim.lsp.enable('html')
             
-            lspconfig.cssls.setup({
-                on_attach = on_attach,
-                capabilities = capabilities,
-            })
+            -- cssls
+            vim.lsp.config.cssls = {
+                cmd = { 'vscode-css-language-server', '--stdio' },
+                filetypes = { 'css', 'scss', 'less' },
+                root_markers = { 'package.json', '.git' },
+            }
+            vim.lsp.enable('cssls')
             
-            lspconfig.jsonls.setup({
-                on_attach = on_attach,
-                capabilities = capabilities,
-            })
+            -- jsonls
+            vim.lsp.config.jsonls = {
+                cmd = { 'vscode-json-language-server', '--stdio' },
+                filetypes = { 'json', 'jsonc' },
+                root_markers = { 'package.json', '.git' },
+            }
+            vim.lsp.enable('jsonls')
             
-            lspconfig.tailwindcss.setup({
-                on_attach = on_attach,
-                capabilities = capabilities,
+            -- tailwindcss
+            vim.lsp.config.tailwindcss = {
+                cmd = { 'tailwindcss-language-server', '--stdio' },
+                filetypes = { 'html', 'css', 'scss', 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' },
+                root_markers = { 'tailwind.config.js', 'tailwind.config.cjs', 'tailwind.config.ts', 'package.json', '.git' },
+            }
+            vim.lsp.enable('tailwindcss')
+            
+            -- Set up autocmd to call on_attach when LSP attaches
+            vim.api.nvim_create_autocmd('LspAttach', {
+                callback = function(args)
+                    local client = vim.lsp.get_client_by_id(args.data.client_id)
+                    if client then
+                        on_attach(client, args.buf)
+                    end
+                end,
             })
         end
     },

@@ -87,8 +87,8 @@ end
 -- ============================================================================
 -- Diagnostic Navigation (global keymaps, work for all buffers)
 -- ============================================================================
-vim.keymap.set('n', '[d', function() vim.diagnostic.goto_prev() end, { desc = 'Previous Diagnostic' })
-vim.keymap.set('n', ']d', function() vim.diagnostic.goto_next() end, { desc = 'Next Diagnostic' })
+vim.keymap.set('n', '[d', function() vim.diagnostic.jump({ count = -1 }) end, { desc = 'Previous Diagnostic' })
+vim.keymap.set('n', ']d', function() vim.diagnostic.jump({ count = 1 }) end, { desc = 'Next Diagnostic' })
 
 -- ============================================================================
 -- Better Defaults (movement & navigation improvements)

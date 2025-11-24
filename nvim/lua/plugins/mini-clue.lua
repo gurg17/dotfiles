@@ -1,8 +1,11 @@
 return {
 	'echasnovski/mini.clue',
 	version = '*',
+	dependencies = { 'echasnovski/mini.icons' },
 	config = function()
 		local miniclue = require('mini.clue')
+		local icons = require('mini.icons')
+		
 		miniclue.setup({
 			triggers = {
 				-- Leader triggers
@@ -47,10 +50,10 @@ return {
 				{ mode = 'n', keys = '<Leader>t', desc = '+Test' },
 				{ mode = 'n', keys = '<Leader>w', desc = '+Write/Save' },
 
-				-- Explicit global <leader>l keymaps (will be grouped at top)
-				{ mode = 'n', keys = '<Leader>lg', desc = '󰊢 LazyGit' },
-				{ mode = 'n', keys = '<Leader>lm', desc = '󰢛 Mason (LSP Manager)' },
-				{ mode = 'n', keys = '<Leader>ln', desc = '󰒲 Lazy (Plugin Manager)' },
+				-- Explicit global <leader>l keymaps (prefixed with space to sort first)
+				{ mode = 'n', keys = '<Leader>lg', desc = '  ' .. icons.get('file', '.git') .. ' LazyGit' },
+				{ mode = 'n', keys = '<Leader>lm', desc = '  ' .. icons.get('os', 'linux') .. ' Mason' },
+				{ mode = 'n', keys = '<Leader>ln', desc = '  ' .. icons.get('os', 'arch') .. ' Lazy' },
 
 				-- Built-in Vim clue generators
 				miniclue.gen_clues.builtin_completion(),

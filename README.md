@@ -2,151 +2,86 @@
 
 Personal configuration files for macOS development environment.
 
-## Overview
+## 📁 Structure
 
-This repository contains configuration files for various development tools and applications used in my daily workflow. The configurations are optimized for macOS and focus on productivity, aesthetics, and functionality.
-
-## Tools & Configurations
-
-### 🪟 [AeroSpace](aerospace/)
-Window management configuration for AeroSpace, a tiling window manager for macOS.
-- **File**: `aerospace.toml`
-- **Purpose**: Automated window tiling and workspace management
-
-### 🍺 [Homebrew](brew/)
-Package management configuration for Homebrew.
-- **File**: `Brewfile`
-- **Purpose**: Declarative package installation and management
-- **Usage**: Run `brew bundle` to install all packages
-
-### 👻 [Ghostty](ghostty/)
-Terminal emulator configuration with custom themes.
-- **Files**: `config`, `themes/`
-- **Features**: 
-  - Custom configuration settings
-  - Multiple Noctis theme variants (azureus, bordo, hibernus, lilac, lux, minimus, uva, viola)
-
-### 🐚 [Nushell](nushell/)
-Modern shell configuration with structured data support.
-- **Files**: `config.nu`, `env.nu`, `history.txt`
-- **Features**: Structured shell with powerful data manipulation capabilities
-
-### 📊 [SketchyBar](sketchybar/)
-Highly customizable status bar for macOS.
-- **Files**: `sketchybarrc`, `plugins/`
-- **Plugins**:
-  - `battery.sh` - Battery status indicator
-  - `clock.sh` - Date and time display
-  - `front_app.sh` - Current application indicator
-  - `space.sh` - Workspace/space indicator
-  - `volume.sh` - Audio volume control
-
-### ⭐ [Starship](starship/)
-Cross-shell prompt configuration.
-- **File**: `starship.toml`
-- **Purpose**: Fast, customizable shell prompt with git integration
-
-### 🔧 [Zsh](zsh/)
-Z shell configuration and customizations.
-- **Purpose**: Shell environment setup and customizations
-
-## Installation
-
-### Prerequisites
-- macOS (tested on macOS Sonoma 14.5+)
-- Homebrew installed
-- Git
-
-### Quick Setup
-
-1. **Clone the repository**:
-   ```bash
-   git clone <repository-url> ~/.config
-   cd ~/.config
-   ```
-
-2. **Install packages**:
-   ```bash
-   brew bundle --file=brew/Brewfile
-   ```
-
-3. **Symlink configurations** (if needed):
-   ```bash
-   # Most tools will automatically detect configs in ~/.config/
-   # Manual symlinking may be required for some tools
-   ```
-
-### Individual Tool Setup
-
-#### AeroSpace
-```bash
-# AeroSpace will automatically load config from ~/.config/aerospace/
-aerospace --reload-config
+```
+~/.config/
+├── aerospace/         # Window manager (tiling)
+├── brew/             # Homebrew packages (Brewfile)
+├── btop/             # System monitor
+├── fastfetch/        # System info display
+├── ghostty/          # Terminal emulator + themes
+├── nushell/          # Modern shell
+├── nvim/             # Neovim editor (see nvim/README.md)
+├── opencode/         # OpenCode config
+├── raycast/          # Raycast launcher
+├── sketchybar/       # macOS status bar
+├── starship/         # Shell prompt
+└── zsh/              # Z shell
 ```
 
-#### Ghostty
+## 🚀 Quick Start
+
+### 1. Clone Repository
 ```bash
-# Ghostty automatically loads from ~/.config/ghostty/
-# Restart Ghostty to apply changes
+git clone <repository-url> ~/.config
+cd ~/.config
 ```
 
-#### Nushell
+### 2. Install Packages
 ```bash
-# Configs are automatically loaded from ~/.config/nushell/
-# Restart your shell or run:
-source ~/.config/nushell/config.nu
+brew bundle --file=brew/Brewfile
 ```
 
-#### SketchyBar
+### 3. Configure Tools
+Most tools automatically detect configs in `~/.config/`. See individual folder READMEs for details.
+
+## 🔧 Tools
+
+| Tool | Purpose | Config Location | Docs |
+|------|---------|----------------|------|
+| **Neovim** | Code editor (TypeScript/JS focus) | `nvim/` | [README](nvim/README.md) |
+| **AeroSpace** | Window tiling manager | `aerospace/aerospace.toml` | - |
+| **Ghostty** | Terminal emulator | `ghostty/config` | - |
+| **SketchyBar** | Status bar | `sketchybar/sketchybarrc` | - |
+| **Nushell** | Modern shell | `nushell/config.nu` | - |
+| **Starship** | Shell prompt | `starship/starship.toml` | - |
+| **Homebrew** | Package manager | `brew/Brewfile` | - |
+
+## 📖 Detailed Documentation
+
+Each major tool has its own README with detailed configuration, keymaps, and usage:
+
+- **[Neovim](nvim/README.md)** - Complete LSP setup, keymaps, plugins, and how to extend
+
+## 🔄 Maintenance
+
+### Update Packages
 ```bash
-# Start SketchyBar service
-brew services start sketchybar
-# Or reload configuration
-sketchybar --reload
-```
-
-#### Starship
-```bash
-# Add to your shell profile:
-eval "$(starship init zsh)"  # for zsh
-eval "$(starship init bash)" # for bash
-```
-
-## Customization
-
-### Themes
-The Ghostty configuration includes multiple Noctis theme variants. To switch themes, modify the `theme` setting in `ghostty/config`.
-
-### SketchyBar Plugins
-Each plugin in `sketchybar/plugins/` can be customized independently. Modify the scripts to change appearance or functionality.
-
-### Starship Prompt
-Edit `starship/starship.toml` to customize the shell prompt appearance and modules.
-
-## Maintenance
-
-### Updating Packages
-```bash
-# Update Homebrew packages
 brew update && brew upgrade
-
-# Update Brewfile
 brew bundle dump --force --file=brew/Brewfile
 ```
 
-### Backup
-This repository serves as a backup of your configurations. Regular commits ensure your settings are preserved.
+### Reload Configs
+```bash
+# Neovim: Restart or :Lazy sync
+# SketchyBar: sketchybar --reload
+# AeroSpace: aerospace --reload-config
+```
 
-## Requirements
+## 💡 Philosophy
 
-- macOS 12.0+ (recommended)
-- Homebrew
-- Git
+- **Minimal**: Only essential tools and plugins
+- **Fast**: Performance-first configurations
+- **Documented**: Each tool explained (see individual READMEs)
+- **Reproducible**: Declarative configs (Brewfile, lazy-lock.json, etc.)
 
-## License
+## 📝 Notes
 
-Personal dotfiles - use at your own discretion.
+- **macOS-specific**: Tested on macOS 14.5+ (Sonoma)
+- **~/.config standard**: XDG Base Directory compliant
+- **Git-tracked**: All configs versioned for easy restoration
 
 ---
 
-**Note**: These configurations are tailored for personal use. You may need to adjust paths, preferences, or remove specific configurations that don't match your setup. 
+**For detailed tool-specific documentation, see the README in each folder (e.g., `nvim/README.md`)** 

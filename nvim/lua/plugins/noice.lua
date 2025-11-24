@@ -26,9 +26,6 @@ return {
 				enabled = true, -- Keep command palette
 				view = "cmdline_popup",
 			},
-			messages = {
-				enabled = false, -- Disable - let messages show normally
-			},
 			popupmenu = {
 				enabled = true, -- Keep popup menu
 			},

@@ -4,6 +4,40 @@
 vim.g.mapleader = " "
 
 -- ============================================================================
+-- Global LSP Keymap Setup Function
+-- ============================================================================
+-- This function is called by all LSP servers when they attach to a buffer
+_G.setup_lsp_keymaps = function(client, bufnr)
+    local opts = { buffer = bufnr, silent = true }
+    
+    -- <leader>l prefix - LSP Actions
+    vim.keymap.set('n', '<leader>la', vim.lsp.buf.code_action, vim.tbl_extend('force', opts, { desc = 'Code Action' }))
+    vim.keymap.set('n', '<leader>lr', vim.lsp.buf.rename, vim.tbl_extend('force', opts, { desc = 'Rename Symbol' }))
+    vim.keymap.set('n', '<leader>lf', function()
+        -- Try conform first, fallback to LSP
+        local ok, conform = pcall(require, 'conform')
+        if ok then
+            conform.format({ async = true, lsp_fallback = true })
+        else
+            vim.lsp.buf.format({ async = true })
+        end
+    end, vim.tbl_extend('force', opts, { desc = 'Format Buffer' }))
+    vim.keymap.set('n', '<leader>ls', vim.lsp.buf.signature_help, vim.tbl_extend('force', opts, { desc = 'Signature Help' }))
+    vim.keymap.set('n', '<leader>ld', vim.diagnostic.open_float, vim.tbl_extend('force', opts, { desc = 'Show Line Diagnostics' }))
+    vim.keymap.set('n', '<leader>lq', vim.diagnostic.setloclist, vim.tbl_extend('force', opts, { desc = 'Diagnostics to Location List' }))
+    
+    -- Hover documentation
+    vim.keymap.set('n', 'K', vim.lsp.buf.hover, vim.tbl_extend('force', opts, { desc = 'Hover Documentation' }))
+    
+    -- Diagnostic navigation
+    vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, vim.tbl_extend('force', opts, { desc = 'Previous Diagnostic' }))
+    vim.keymap.set('n', ']d', vim.diagnostic.goto_next, vim.tbl_extend('force', opts, { desc = 'Next Diagnostic' }))
+    
+    -- Visual indicator that LSP is attached
+    vim.notify(string.format('LSP attached: %s', client.name), vim.log.levels.DEBUG)
+end
+
+-- ============================================================================
 -- Better Defaults (movement & navigation improvements)
 -- ============================================================================
 vim.keymap.set("n", "J", "mzJ`z", { desc = "Join Lines" })

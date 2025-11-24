@@ -16,7 +16,7 @@ _G.setup_lsp_keymaps = function(client, bufnr)
 	vim.keymap.set('n', '<leader>lf', function()
 		-- Try conform first, fallback to LSP
 		local ok, conform = pcall(require, 'conform')
-		if ok then
+		if ok and conform then
 			conform.format({ async = true, lsp_fallback = true })
 		else
 			vim.lsp.buf.format({ async = true })
@@ -30,7 +30,7 @@ _G.setup_lsp_keymaps = function(client, bufnr)
 		vim.tbl_extend('force', opts, { desc = 'Diagnostics List' }))
 
 	-- Hover documentation
-	vim.keymap.set('n', 'K', vim.lsp.buf.hover, vim.tbl_extend('force', opts, { desc = 'Hover Documentation' }))
+	vim.keymap.set('n', 'K', vim.lsp.buf.hover, vim.tbl_extend('force', opts, { desc = 'Hover' }))
 
 	-- Diagnostic navigation
 	vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, vim.tbl_extend('force', opts, { desc = 'Previous Diagnostic' }))

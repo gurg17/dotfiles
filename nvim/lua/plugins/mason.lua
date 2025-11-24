@@ -96,12 +96,15 @@ return {
 				},
 				handlers = {
 					['$/progress'] = function(_, result, ctx)
-						-- Route progress notifications to mini.notify
+						-- Route progress notifications to mini.notify with LSP server name
 						if result.value and result.value.kind then
+							local client = vim.lsp.get_client_by_id(ctx.client_id)
+							local client_name = client and client.name or "LSP"
+							
 							if result.value.kind == "begin" then
-								vim.notify("Loading workspace...", vim.log.levels.INFO)
+								vim.notify(string.format("Loading %s workspace...", client_name), vim.log.levels.INFO)
 							elseif result.value.kind == "end" then
-								vim.notify("Workspace ready!", vim.log.levels.INFO)
+								vim.notify(string.format("%s workspace ready!", client_name), vim.log.levels.INFO)
 							end
 							-- Skip "report" kind to avoid showing progress numbers
 						end

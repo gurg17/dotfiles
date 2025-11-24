@@ -14,7 +14,7 @@ return {
 		vim.notify = notify.make_notify({
 			ERROR = { duration = 10000 },
 			WARN  = { duration = 5000 },
-			INFO  = { duration = 3000 },
+			INFO  = { duration = 5000 },  -- Increased from 3000 to 5000
 			DEBUG = { duration = 2000 },
 			TRACE = { duration = 2000 },
 		})
@@ -29,7 +29,7 @@ return {
 					vim.notify = notify.make_notify({
 						ERROR = { duration = 10000 },
 						WARN  = { duration = 5000 },
-						INFO  = { duration = 3000 },
+						INFO  = { duration = 5000 },  -- Increased from 3000 to 5000
 						DEBUG = { duration = 2000 },
 						TRACE = { duration = 2000 },
 					})

@@ -88,13 +88,14 @@ return {
             require('mason-lspconfig').setup({
                 ensure_installed = {
                     'lua_ls',
-                    'ts_ls',      -- TypeScript/JavaScript LSP
+                    'ts_ls',      -- TypeScript/JavaScript LSP (mason package: typescript-language-server)
                     'eslint',     -- ESLint (reads local .eslintrc)
                     'html',
                     'cssls',
                     'jsonls',
                     'tailwindcss',
                 },
+                automatic_installation = true,
                 automatic_installation = true,
                 handlers = {
                     -- Default handler for all servers

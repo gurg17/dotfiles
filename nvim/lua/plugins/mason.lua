@@ -98,12 +98,12 @@ return {
 					['$/progress'] = function(_, result, ctx)
 						-- Route progress notifications to mini.notify
 						if result.value and result.value.kind then
-							local message = result.value.message or result.value.title or "Loading..."
 							if result.value.kind == "begin" then
-								vim.notify(message, vim.log.levels.INFO)
+								vim.notify("Loading workspace...", vim.log.levels.INFO)
 							elseif result.value.kind == "end" then
 								vim.notify("Workspace ready!", vim.log.levels.INFO)
 							end
+							-- Skip "report" kind to avoid showing progress numbers
 						end
 					end,
 				}

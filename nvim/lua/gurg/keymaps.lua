@@ -75,6 +75,14 @@ _G.setup_lsp_keymaps = function(client, bufnr)
     
     -- Visual indicator that LSP is attached
     vim.notify(string.format('LSP attached: %s', client.name), vim.log.levels.DEBUG)
+    
+    -- Refresh mini.clue to show new buffer-local keymaps
+    vim.schedule(function()
+        local ok, miniclue = pcall(require, 'mini.clue')
+        if ok and miniclue.refresh then
+            miniclue.refresh()
+        end
+    end)
 end
 
 -- ============================================================================

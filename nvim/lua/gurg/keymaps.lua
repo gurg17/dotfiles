@@ -38,6 +38,7 @@ _G.setup_lsp_keymaps = function(client, bufnr)
 			vim.lsp.buf.code_action({
 				apply = true,
 				context = {
+					---@diagnostic disable-next-line: assign-type-mismatch
 					only = { 'source.organizeImports.ts' },
 					diagnostics = {}
 				}
@@ -48,6 +49,7 @@ _G.setup_lsp_keymaps = function(client, bufnr)
 			vim.lsp.buf.code_action({
 				apply = true,
 				context = {
+					---@diagnostic disable-next-line: assign-type-mismatch
 					only = { 'source.addMissingImports.ts' },
 					diagnostics = {}
 				}
@@ -58,6 +60,7 @@ _G.setup_lsp_keymaps = function(client, bufnr)
 			vim.lsp.buf.code_action({
 				apply = true,
 				context = {
+					---@diagnostic disable-next-line: assign-type-mismatch
 					only = { 'source.removeUnused.ts' },
 					diagnostics = {}
 				}
@@ -68,6 +71,7 @@ _G.setup_lsp_keymaps = function(client, bufnr)
 			vim.lsp.buf.code_action({
 				apply = true,
 				context = {
+					---@diagnostic disable-next-line: assign-type-mismatch
 					only = { 'source.fixAll.ts' },
 					diagnostics = {}
 				}

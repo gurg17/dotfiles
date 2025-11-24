@@ -38,7 +38,8 @@ _G.setup_lsp_keymaps = function(client, bufnr)
 			vim.lsp.buf.code_action({
 				apply = true,
 				context = {
-					only = { 'source.organizeImports' },
+					only = { 'source.organizeImports.ts' },
+					diagnostics = {}
 				}
 			})
 		end, vim.tbl_extend('force', opts, { desc = 'Organize Imports' }))
@@ -47,7 +48,8 @@ _G.setup_lsp_keymaps = function(client, bufnr)
 			vim.lsp.buf.code_action({
 				apply = true,
 				context = {
-					only = { 'source.addMissingImports' },
+					only = { 'source.addMissingImports.ts' },
+					diagnostics = {}
 				}
 			})
 		end, vim.tbl_extend('force', opts, { desc = 'Add Missing Imports' }))
@@ -56,7 +58,8 @@ _G.setup_lsp_keymaps = function(client, bufnr)
 			vim.lsp.buf.code_action({
 				apply = true,
 				context = {
-					only = { 'source.removeUnused' },
+					only = { 'source.removeUnused.ts' },
+					diagnostics = {}
 				}
 			})
 		end, vim.tbl_extend('force', opts, { desc = 'Remove Unused Imports' }))
@@ -65,7 +68,8 @@ _G.setup_lsp_keymaps = function(client, bufnr)
 			vim.lsp.buf.code_action({
 				apply = true,
 				context = {
-					only = { 'source.fixAll' },
+					only = { 'source.fixAll.ts' },
+					diagnostics = {}
 				}
 			})
 		end, vim.tbl_extend('force', opts, { desc = 'Fix All' }))

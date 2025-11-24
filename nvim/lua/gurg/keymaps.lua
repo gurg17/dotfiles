@@ -33,6 +33,46 @@ _G.setup_lsp_keymaps = function(client, bufnr)
     vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, vim.tbl_extend('force', opts, { desc = 'Previous Diagnostic' }))
     vim.keymap.set('n', ']d', vim.diagnostic.goto_next, vim.tbl_extend('force', opts, { desc = 'Next Diagnostic' }))
     
+    -- vtsls-specific keymaps
+    if client.name == 'vtsls' then
+        vim.keymap.set('n', '<leader>lo', function()
+            vim.lsp.buf.execute_command({
+                command = 'typescript.organizeImports',
+                arguments = { vim.api.nvim_buf_get_name(0) }
+            })
+        end, vim.tbl_extend('force', opts, { desc = 'Organize Imports' }))
+        
+        vim.keymap.set('n', '<leader>li', function()
+            vim.lsp.buf.code_action({
+                apply = true,
+                context = {
+                    only = { 'source.addMissingImports.ts' },
+                    diagnostics = {},
+                }
+            })
+        end, vim.tbl_extend('force', opts, { desc = 'Add Missing Imports' }))
+        
+        vim.keymap.set('n', '<leader>lu', function()
+            vim.lsp.buf.code_action({
+                apply = true,
+                context = {
+                    only = { 'source.removeUnused.ts' },
+                    diagnostics = {},
+                }
+            })
+        end, vim.tbl_extend('force', opts, { desc = 'Remove Unused Imports' }))
+        
+        vim.keymap.set('n', '<leader>lx', function()
+            vim.lsp.buf.code_action({
+                apply = true,
+                context = {
+                    only = { 'source.fixAll.ts' },
+                    diagnostics = {},
+                }
+            })
+        end, vim.tbl_extend('force', opts, { desc = 'Fix All' }))
+    end
+    
     -- Visual indicator that LSP is attached
     vim.notify(string.format('LSP attached: %s', client.name), vim.log.levels.DEBUG)
 end
@@ -100,6 +140,18 @@ vim.keymap.set("n", "<leader>Q", "<cmd>qa!<cr>", { desc = "Quit Neovim (no save)
 -- ============================================================================
 vim.keymap.set("n", "<leader>w", "<cmd>w<cr>", { desc = "Save File" })
 vim.keymap.set("n", "<leader>wq", "<cmd>w|bp|bd! #<cr>", { desc = "Save & Close Buffer" })
+
+-- ============================================================================
+-- Format (Global - always available)
+-- ============================================================================
+vim.keymap.set("n", "=", function()
+    local ok, conform = pcall(require, 'conform')
+    if ok then
+        conform.format({ async = true, lsp_fallback = true })
+    else
+        vim.lsp.buf.format({ async = true })
+    end
+end, { desc = "Format Buffer" })
 
 -- ============================================================================
 -- Search & Replace (<leader>s)

@@ -5,29 +5,32 @@ return {
     config = function()
         require('typescript-tools').setup({
             on_attach = function(client, bufnr)
-                -- Validate buffer exists and has a valid name
-                if not bufnr or not vim.api.nvim_buf_is_valid(bufnr) then
-                    return
-                end
-                
-                local bufname = vim.api.nvim_buf_get_name(bufnr)
-                if not bufname or bufname == '' then
-                    return
-                end
-                
-                -- Disable formatting (use conform.nvim)
-                client.server_capabilities.documentFormattingProvider = false
-                client.server_capabilities.documentRangeFormattingProvider = false
-                
-                -- Setup shared LSP keymaps (defined in keymaps.lua)
-                _G.setup_lsp_keymaps(client, bufnr)
-                
-                -- TypeScript specific keymaps
-                local opts = { buffer = bufnr, silent = true }
-                vim.keymap.set('n', '<leader>lo', '<cmd>TSToolsOrganizeImports<cr>', vim.tbl_extend('force', opts, { desc = 'Organize Imports' }))
-                vim.keymap.set('n', '<leader>li', '<cmd>TSToolsAddMissingImports<cr>', vim.tbl_extend('force', opts, { desc = 'Add Missing Imports' }))
-                vim.keymap.set('n', '<leader>lu', '<cmd>TSToolsRemoveUnusedImports<cr>', vim.tbl_extend('force', opts, { desc = 'Remove Unused Imports' }))
-                vim.keymap.set('n', '<leader>lx', '<cmd>TSToolsFixAll<cr>', vim.tbl_extend('force', opts, { desc = 'Fix All' }))
+                -- Delay attachment to ensure buffer is fully initialized
+                vim.defer_fn(function()
+                    -- Validate buffer exists and has a valid name
+                    if not bufnr or not vim.api.nvim_buf_is_valid(bufnr) then
+                        return
+                    end
+                    
+                    local bufname = vim.api.nvim_buf_get_name(bufnr)
+                    if not bufname or bufname == '' then
+                        return
+                    end
+                    
+                    -- Disable formatting (use conform.nvim)
+                    client.server_capabilities.documentFormattingProvider = false
+                    client.server_capabilities.documentRangeFormattingProvider = false
+                    
+                    -- Setup shared LSP keymaps (defined in keymaps.lua)
+                    _G.setup_lsp_keymaps(client, bufnr)
+                    
+                    -- TypeScript specific keymaps
+                    local opts = { buffer = bufnr, silent = true }
+                    vim.keymap.set('n', '<leader>lo', '<cmd>TSToolsOrganizeImports<cr>', vim.tbl_extend('force', opts, { desc = 'Organize Imports' }))
+                    vim.keymap.set('n', '<leader>li', '<cmd>TSToolsAddMissingImports<cr>', vim.tbl_extend('force', opts, { desc = 'Add Missing Imports' }))
+                    vim.keymap.set('n', '<leader>lu', '<cmd>TSToolsRemoveUnusedImports<cr>', vim.tbl_extend('force', opts, { desc = 'Remove Unused Imports' }))
+                    vim.keymap.set('n', '<leader>lx', '<cmd>TSToolsFixAll<cr>', vim.tbl_extend('force', opts, { desc = 'Fix All' }))
+                end, 100) -- 100ms delay
             end,
             handlers = {
                 -- Suppress invalid buffer errors

@@ -32,10 +32,6 @@ _G.setup_lsp_keymaps = function(client, bufnr)
 	-- Hover documentation
 	vim.keymap.set('n', 'K', vim.lsp.buf.hover, vim.tbl_extend('force', opts, { desc = 'Hover' }))
 
-	-- Diagnostic navigation
-	vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, vim.tbl_extend('force', opts, { desc = 'Previous Diagnostic' }))
-	vim.keymap.set('n', ']d', vim.diagnostic.goto_next, vim.tbl_extend('force', opts, { desc = 'Next Diagnostic' }))
-
 	-- vtsls-specific keymaps
 	if client.name == 'vtsls' then
 		vim.keymap.set('n', '<leader>lo', function()
@@ -87,6 +83,12 @@ _G.setup_lsp_keymaps = function(client, bufnr)
 		end
 	end)
 end
+
+-- ============================================================================
+-- Diagnostic Navigation (global keymaps, work for all buffers)
+-- ============================================================================
+vim.keymap.set('n', '[d', function() vim.diagnostic.goto_prev() end, { desc = 'Previous Diagnostic' })
+vim.keymap.set('n', ']d', function() vim.diagnostic.goto_next() end, { desc = 'Next Diagnostic' })
 
 -- ============================================================================
 -- Better Defaults (movement & navigation improvements)

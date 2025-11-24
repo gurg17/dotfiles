@@ -78,6 +78,7 @@ return {
 
 			-- Track which LSP progress events we've already notified about
 			local notified_progress = {}
+			local progress_notifs = {}  -- Store notification IDs
 			
 			-- lua_ls
 			vim.lsp.config.lua_ls = {
@@ -111,10 +112,13 @@ return {
 							-- Only notify if we haven't already notified for this event
 							if not notified_progress[key] then
 								if result.value.kind == "begin" then
-									vim.notify(string.format("Loading %s workspace...", client_name), vim.log.levels.INFO)
+									-- Store the notification so it doesn't get replaced
+									local notif_id = vim.notify(string.format("Loading %s workspace...", client_name), vim.log.levels.INFO)
+									progress_notifs[token] = notif_id
 									notified_progress[key] = true
 								elseif result.value.kind == "end" then
-									vim.notify(string.format("%s workspace ready!", client_name), vim.log.levels.INFO)
+									-- Use DEBUG level so it shows as different notification
+									vim.notify(string.format("%s workspace ready!", client_name), vim.log.levels.DEBUG)
 									notified_progress[key] = true
 									-- Clear the token from tracking after completion
 									vim.defer_fn(function()
@@ -123,6 +127,7 @@ return {
 												notified_progress[k] = nil
 											end
 										end
+										progress_notifs[token] = nil
 									end, 1000)
 								end
 							end

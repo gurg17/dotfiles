@@ -9,11 +9,10 @@ vim.g.mapleader = " "
 -- This function is called by all LSP servers when they attach to a buffer
 _G.setup_lsp_keymaps = function(client, bufnr)
 	local opts = { buffer = bufnr, silent = true }
-	local icons = require('mini.icons')
 
-	-- <leader>l prefix - LSP Actions (buffer-local, prefixed with [LSP] to sort after globals)
-	vim.keymap.set('n', '<leader>la', vim.lsp.buf.code_action, vim.tbl_extend('force', opts, { desc = '[LSP] ' .. icons.get('lsp', 'code-action') .. ' Code Action' }))
-	vim.keymap.set('n', '<leader>lr', vim.lsp.buf.rename, vim.tbl_extend('force', opts, { desc = '[LSP] ' .. icons.get('lsp', 'rename') .. ' Rename' }))
+	-- <leader>l prefix - LSP Actions (buffer-local)
+	vim.keymap.set('n', '<leader>la', vim.lsp.buf.code_action, vim.tbl_extend('force', opts, { desc = 'Code Action' }))
+	vim.keymap.set('n', '<leader>lr', vim.lsp.buf.rename, vim.tbl_extend('force', opts, { desc = 'Rename' }))
 	vim.keymap.set('n', '<leader>lf', function()
 		-- Try conform first, fallback to LSP
 		local ok, conform = pcall(require, 'conform')
@@ -22,13 +21,13 @@ _G.setup_lsp_keymaps = function(client, bufnr)
 		else
 			vim.lsp.buf.format({ async = true })
 		end
-	end, vim.tbl_extend('force', opts, { desc = '[LSP] ' .. icons.get('file', 'config') .. ' Format' }))
+	end, vim.tbl_extend('force', opts, { desc = 'Format' }))
 	vim.keymap.set('n', '<leader>ls', vim.lsp.buf.signature_help,
-		vim.tbl_extend('force', opts, { desc = '[LSP] ' .. icons.get('lsp', 'signature-help') .. ' Signature' }))
+		vim.tbl_extend('force', opts, { desc = 'Signature' }))
 	vim.keymap.set('n', '<leader>ld', vim.diagnostic.open_float,
-		vim.tbl_extend('force', opts, { desc = '[LSP] ' .. icons.get('lsp', 'diagnostic') .. ' Diagnostics' }))
+		vim.tbl_extend('force', opts, { desc = 'Diagnostics' }))
 	vim.keymap.set('n', '<leader>lq', vim.diagnostic.setloclist,
-		vim.tbl_extend('force', opts, { desc = '[LSP] ' .. icons.get('default', 'list') .. ' Diag List' }))
+		vim.tbl_extend('force', opts, { desc = 'Diagnostics List' }))
 
 	-- Hover documentation
 	vim.keymap.set('n', 'K', vim.lsp.buf.hover, vim.tbl_extend('force', opts, { desc = 'Hover Documentation' }))
@@ -44,7 +43,7 @@ _G.setup_lsp_keymaps = function(client, bufnr)
 				command = 'typescript.organizeImports',
 				arguments = { vim.api.nvim_buf_get_name(0) }
 			})
-		end, vim.tbl_extend('force', opts, { desc = '[LSP] ' .. icons.get('file', '.ts') .. ' Organize Imports' }))
+		end, vim.tbl_extend('force', opts, { desc = 'Organize Imports' }))
 
 		vim.keymap.set('n', '<leader>li', function()
 			vim.lsp.buf.code_action({
@@ -54,7 +53,7 @@ _G.setup_lsp_keymaps = function(client, bufnr)
 					diagnostics = {},
 				}
 			})
-		end, vim.tbl_extend('force', opts, { desc = '[LSP] ' .. icons.get('default', 'import') .. ' Add Imports' }))
+		end, vim.tbl_extend('force', opts, { desc = 'Add Missing Imports' }))
 
 		vim.keymap.set('n', '<leader>lu', function()
 			vim.lsp.buf.code_action({
@@ -64,7 +63,7 @@ _G.setup_lsp_keymaps = function(client, bufnr)
 					diagnostics = {},
 				}
 			})
-		end, vim.tbl_extend('force', opts, { desc = '[LSP] ' .. icons.get('default', 'import') .. ' Remove Unused' }))
+		end, vim.tbl_extend('force', opts, { desc = 'Remove Unused Imports' }))
 
 		vim.keymap.set('n', '<leader>lx', function()
 			vim.lsp.buf.code_action({
@@ -74,7 +73,7 @@ _G.setup_lsp_keymaps = function(client, bufnr)
 					diagnostics = {},
 				}
 			})
-		end, vim.tbl_extend('force', opts, { desc = '[LSP] ' .. icons.get('lsp', 'diagnostic') .. ' Fix All' }))
+		end, vim.tbl_extend('force', opts, { desc = 'Fix All' }))
 	end
 
 	-- Visual indicator that LSP is attached
@@ -165,7 +164,8 @@ vim.keymap.set("n", "<leader>sr", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left>
 vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true, desc = "Make Executable" })
 
 -- ============================================================================
--- LSP & Plugin Management
+-- LSP & Plugin Management (using numbers to sort before LSP letter keymaps)
 -- ============================================================================
-vim.keymap.set("n", "<leader>lm", "<cmd>Mason<CR>", { desc = "Mason (LSP Manager)" })
-vim.keymap.set("n", "<leader>ln", "<cmd>Lazy<CR>", { desc = "Plugin Manager" })
+vim.keymap.set("n", "<leader>l1", "<cmd>LazyGit<CR>", { desc = "LazyGit" })
+vim.keymap.set("n", "<leader>l2", "<cmd>Lazy<CR>", { desc = "Lazy (Plugins)" })
+vim.keymap.set("n", "<leader>l3", "<cmd>Mason<CR>", { desc = "Mason (LSP)" })

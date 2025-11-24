@@ -1,6 +1,7 @@
 return {
     {
         'williamboman/mason.nvim',
+        cmd = 'Mason',
         config = function()
             require('mason').setup({
                 ui = {
@@ -20,24 +21,27 @@ return {
             'williamboman/mason.nvim',
             'neovim/nvim-lspconfig',
         },
+        lazy = false,
+        priority = 900,
         config = function()
             local capabilities = vim.lsp.protocol.make_client_capabilities()
 
-            -- LSP Keymaps
-            local on_attach = function(client, bufnr)
+            -- Shared LSP Keymaps function (used by all LSP servers)
+            _G.setup_lsp_keymaps = function(client, bufnr)
                 local opts = { buffer = bufnr, silent = true }
                 
-                -- <leader>g prefix - Navigation
-                vim.keymap.set('n', '<leader>gd', vim.lsp.buf.definition, vim.tbl_extend('force', opts, { desc = 'Go to Definition' }))
-                vim.keymap.set('n', '<leader>gD', vim.lsp.buf.declaration, vim.tbl_extend('force', opts, { desc = 'Go to Declaration' }))
-                vim.keymap.set('n', '<leader>gi', vim.lsp.buf.implementation, vim.tbl_extend('force', opts, { desc = 'Go to Implementation' }))
-                vim.keymap.set('n', '<leader>gt', vim.lsp.buf.type_definition, vim.tbl_extend('force', opts, { desc = 'Go to Type Definition' }))
-                vim.keymap.set('n', '<leader>gr', vim.lsp.buf.references, vim.tbl_extend('force', opts, { desc = 'Show References' }))
-                
-                -- <leader>l prefix - Actions
+                -- <leader>l prefix - LSP Actions
                 vim.keymap.set('n', '<leader>la', vim.lsp.buf.code_action, vim.tbl_extend('force', opts, { desc = 'Code Action' }))
                 vim.keymap.set('n', '<leader>lr', vim.lsp.buf.rename, vim.tbl_extend('force', opts, { desc = 'Rename Symbol' }))
-                vim.keymap.set('n', '<leader>lf', function() vim.lsp.buf.format({ async = true }) end, vim.tbl_extend('force', opts, { desc = 'Format Document' }))
+                vim.keymap.set('n', '<leader>lf', function()
+                    -- Try conform first, fallback to LSP
+                    local conform = require('conform')
+                    if conform then
+                        conform.format({ async = true, lsp_fallback = true })
+                    else
+                        vim.lsp.buf.format({ async = true })
+                    end
+                end, vim.tbl_extend('force', opts, { desc = 'Format Buffer' }))
                 vim.keymap.set('n', '<leader>ls', vim.lsp.buf.signature_help, vim.tbl_extend('force', opts, { desc = 'Signature Help' }))
                 vim.keymap.set('n', '<leader>ld', vim.diagnostic.open_float, vim.tbl_extend('force', opts, { desc = 'Show Line Diagnostics' }))
                 vim.keymap.set('n', '<leader>lq', vim.diagnostic.setloclist, vim.tbl_extend('force', opts, { desc = 'Diagnostics to Location List' }))
@@ -48,7 +52,20 @@ return {
                 -- Diagnostic navigation
                 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, vim.tbl_extend('force', opts, { desc = 'Previous Diagnostic' }))
                 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, vim.tbl_extend('force', opts, { desc = 'Next Diagnostic' }))
+                
+                -- Built-in LSP navigation (use gd, gD, etc. instead)
+                -- gd - Go to definition (built-in)
+                -- gD - Go to declaration (built-in)
+                -- gi - Go to implementation (built-in)
+                -- gr - Show references (built-in)
             end
+
+                   -- LSP on_attach wrapper
+                   local on_attach = function(client, bufnr)
+                       _G.setup_lsp_keymaps(client, bufnr)
+                       -- Visual indicator that LSP is attached
+                       vim.notify(string.format('LSP attached: %s', client.name), vim.log.levels.DEBUG)
+                   end
 
             -- Configure diagnostic display
             vim.diagnostic.config({
@@ -77,22 +94,31 @@ return {
 
             -- Server-specific configurations
             local server_configs = {
-                lua_ls = {
-                    settings = {
-                        Lua = {
-                            diagnostics = {
-                                globals = { 'vim' }
-                            },
-                            workspace = {
-                                library = vim.api.nvim_get_runtime_file('', true),
-                                checkThirdParty = false,
-                            },
-                            telemetry = {
-                                enable = false,
-                            },
-                        }
-                    }
-                },
+                   lua_ls = {
+                       settings = {
+                           Lua = {
+                               runtime = {
+                                   version = 'LuaJIT',
+                               },
+                               diagnostics = {
+                                   globals = { 'vim' },
+                               },
+                               workspace = {
+                                   library = {
+                                       vim.env.VIMRUNTIME,
+                                       "${3rd}/luv/library",
+                                   },
+                                   checkThirdParty = false,
+                               },
+                               telemetry = {
+                                   enable = false,
+                               },
+                               completion = {
+                                   callSnippet = 'Replace',
+                               },
+                           }
+                       }
+                   },
             }
 
             -- Setup mason-lspconfig with handlers

@@ -2,16 +2,6 @@ return {
     'stevearc/conform.nvim',
     event = { 'BufWritePre' },
     cmd = { 'ConformInfo' },
-    keys = {
-        {
-            '<leader>lf',
-            function()
-                require('conform').format({ async = true, lsp_fallback = true })
-            end,
-            mode = '',
-            desc = 'Format Buffer',
-        },
-    },
     opts = {
         formatters_by_ft = {
             javascript = { 'prettierd', 'prettier', stop_after_first = true },

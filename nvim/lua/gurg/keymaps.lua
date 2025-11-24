@@ -76,4 +76,9 @@ vim.keymap.set("n", "<leader>sr", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left>
 -- Utilities
 -- ============================================================================
 vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true, desc = "Make Executable" })
+
+-- ============================================================================
+-- LSP & Plugin Management
+-- ============================================================================
+vim.keymap.set("n", "<leader>lm", "<cmd>Mason<CR>", { desc = "Mason (LSP Manager)" })
 vim.keymap.set("n", "<leader>ln", "<cmd>Lazy<CR>", { desc = "Plugin Manager" })

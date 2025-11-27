@@ -1,12 +1,105 @@
 add_newline = false
-format = """$directory$character"""
-right_format = """$all"""
 command_timeout = 1000
 
+format = """$directory$git_branch$git_status
+$character"""
+right_format = """$nodejs$docker_context$kubernetes$gcloud$golang$cmd_duration"""
+
+# Kanagawa Colors:
+# crystalBlue: #7E9CD8  | springGreen: #98BB6C  | oniViolet: #957FB8
+# roninYellow: #FF9E3B | samuraiRed: #E82424   | waveAqua2: #7AA89F
+# surimiOrange: #FFA066 | sakuraPink: #D27E99  | carpYellow: #E6C384
+# autumnGreen: #76946A | autumnRed: #C34043    | autumnYellow: #DCA561
+
 [character]
-success_symbol = '[](bold green)'
-error_symbol = '[](bold red)'
-vicmd_symbol = '[N](bold yellow)'
+success_symbol = '[❯](bold #98BB6C)'
+error_symbol = '[❯](bold #E82424)'
+vicmd_symbol = '[❮](bold #FF9E3B)'
+
+[directory]
+truncation_length = 3
+truncate_to_repo = true
+style = 'bold #7E9CD8'
+read_only = ' 󰌾'
 
 [git_branch]
-format = '[$symbol$branch(:$remote_branch)]($style) '
+format = '[$symbol$branch]($style) '
+symbol = ' '
+style = 'bold #957FB8'
+
+[git_status]
+format = '[$all_status$ahead_behind]($style) '
+style = 'bold #DCA561'
+conflicted = ' '
+ahead = '⇡${count}'
+behind = '⇣${count}'
+diverged = '⇕⇡${ahead_count}⇣${behind_count}'
+untracked = ' ${count}'
+stashed = '󰏗 '
+modified = ' ${count}'
+staged = '󰐗 ${count}'
+deleted = '󰍴 ${count}'
+
+[nodejs]
+format = '[$symbol($version)]($style) '
+symbol = ' '
+style = 'bold #98BB6C'
+detect_files = ['package.json', '.nvmrc']
+detect_folders = ['node_modules']
+
+[docker_context]
+format = '[$symbol$context]($style) '
+symbol = '󰡨 '
+style = 'bold #7E9CD8'
+
+[kubernetes]
+format = '[$symbol$context( \($namespace\))]($style) '
+symbol = '󱃾 '
+style = 'bold #7FB4CA'
+disabled = false
+
+[gcloud]
+format = '[$symbol$account(@$domain)(\($region\))]($style) '
+symbol = '󱇶 '
+style = 'bold #7E9CD8'
+
+[golang]
+format = '[$symbol($version)]($style) '
+symbol = ' '
+style = 'bold #7AA89F'
+
+[helm]
+format = '[$symbol($version)]($style) '
+symbol = '󱃾 '
+style = 'bold #7FB4CA'
+
+[cmd_duration]
+min_time = 2000
+format = '[ $duration]($style) '
+style = 'bold #FF9E3B'
+show_notifications = false
+
+# Disabled modules
+[aws]
+disabled = true
+
+[terraform]
+disabled = true
+
+[vagrant]
+disabled = true
+
+[java]
+disabled = true
+
+[ruby]
+disabled = true
+
+[rust]
+disabled = true
+
+[python]
+disabled = true
+
+[php]
+disabled = true

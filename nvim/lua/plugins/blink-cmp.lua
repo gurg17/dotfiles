@@ -21,12 +21,16 @@ return {
 			use_nvim_cmp_as_default = true,
 			nerd_font_variant = 'mono'
 		},
+		-- Use mini.snippets for snippet expansion
+		snippets = {
+			preset = 'mini_snippets',
+		},
 		sources = {
 			default = { 'lsp', 'path', 'snippets', 'buffer', 'minuet' },
 			providers = {
 				snippets = {
-					min_keyword_length = 2,
-					score_offset = -3,
+					min_keyword_length = 1,
+					score_offset = 5, -- Higher priority to show snippets
 				},
 				minuet = {
 					name = 'minuet',

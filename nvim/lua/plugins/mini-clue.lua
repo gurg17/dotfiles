@@ -42,6 +42,7 @@ return {
 				{ mode = 'n', keys = '<Leader>a', desc = '+AI' },
 				{ mode = 'n', keys = '<Leader>e', desc = '+Explorer' },
 				{ mode = 'n', keys = '<Leader>l', desc = '+LSP/Language' },
+				{ mode = 'n', keys = '<Leader>n', desc = '+NPM/Package' },
 				{ mode = 'n', keys = '<Leader>q', desc = '+Quit/Close' },
 				{ mode = 'n', keys = '<Leader>s', desc = '+Search' },
 				{ mode = 'n', keys = '<Leader>t', desc = '+Test' },

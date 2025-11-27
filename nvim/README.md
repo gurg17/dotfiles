@@ -176,8 +176,6 @@ local server_configs = {
 ### Navigation
 - `<C-d>` / `<C-u>` - Scroll down/up (centered)
 - `n` / `N` - Next/prev search (centered)
-- `gd` / `gD` - Go to definition/declaration (built-in LSP)
-- `gr` / `gi` - References / implementation (built-in LSP)
 
 ### Utilities
 - `<leader>x` - Make file executable

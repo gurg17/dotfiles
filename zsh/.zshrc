@@ -7,8 +7,8 @@ source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 source $(brew --prefix)/share/zsh-autocomplete/zsh-autocomplete.plugin.zsh
 
 # Starship Prompt
-eval "$(starship init zsh)"
 export STARSHIP_CONFIG=~/.config/starship/starship.toml
+eval "$(starship init zsh)"
 
 # NVM (Node Version Manager)
 export NVM_DIR=~/.nvm

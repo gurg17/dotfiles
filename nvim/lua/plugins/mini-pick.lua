@@ -2,12 +2,32 @@ return {
 	'echasnovski/mini.pick',
 	version = '*',
 	keys = {
-		{ "<leader><leader>", "<cmd>Pick files<cr>",                  desc = "Find Files" },
-		{ "<leader>es",       "<cmd>Pick buffers<cr>",                desc = "Switch Buffer" },
-		{ "<leader>sg",       "<cmd>Pick grep_live<cr>",              desc = "Live Grep" },
-		{ "<leader>sw",       "<cmd>Pick grep pattern='<cword>'<cr>", desc = "Grep Word" },
+		{
+			"<leader><leader>",
+			function() require('mini.pick').builtin.files({ tool = 'rg' }) end,
+			desc = "Find Files",
+		},
+		{ "<leader>es", "<cmd>Pick buffers<cr>", desc = "Switch Buffer" },
+		{ "<leader>sg", "<cmd>Pick grep_live<cr>", desc = "Live Grep" },
 	},
 	config = function()
-		require('mini.pick').setup()
+		-- Set RIPGREP_CONFIG_PATH to use custom rg config with hidden files
+		local rg_config = vim.fn.stdpath('config') .. '/.ripgreprc'
+		vim.env.RIPGREP_CONFIG_PATH = rg_config
+
+		-- Create .ripgreprc if it doesn't exist
+		if vim.fn.filereadable(rg_config) == 0 then
+			vim.fn.writefile({
+				'--hidden',
+				'--no-ignore',
+				'--glob=!.git',
+			}, rg_config)
+		end
+
+		require('mini.pick').setup({
+			options = {
+				use_cache = true,
+			},
+		})
 	end
 }

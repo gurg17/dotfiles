@@ -11,6 +11,8 @@ vim.opt.wrap = false
 
 vim.opt.hlsearch = false
 vim.opt.incsearch = true
+vim.opt.ignorecase = true -- Case-insensitive search (also affects mini.pick)
+vim.opt.smartcase = true  -- Case-sensitive if query has uppercase
 
 vim.opt.swapfile = false
 vim.opt.backup = false

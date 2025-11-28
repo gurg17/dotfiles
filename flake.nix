@@ -18,8 +18,12 @@
 
   outputs = inputs@{ self, nixpkgs, nix-darwin, nix-homebrew, home-manager }:
   let
+    # Get current hostname from environment
+    # Falls back to reading from system if not set
+    currentHostname = builtins.getEnv "HOSTNAME";
+    
     # Helper function to create system configurations
-    mkSystem = { system, hostname, username }: {
+    mkSystem = { system, hostname ? null, username }: {
       inherit system;
       modules = [
         ./hosts/darwin
@@ -42,7 +46,8 @@
           users.users.${username}.home = "/Users/${username}";
           
           system.primaryUser = username;
-          networking.hostName = hostname;
+          # Use provided hostname or keep system default
+          networking.hostName = if hostname != null then hostname else currentHostname;
         }
       ];
     };
@@ -50,10 +55,11 @@
   {
     # macOS configurations (nix-darwin)
     darwinConfigurations = {
-      # Example: darwin-rebuild switch --flake .#darwin
+      # Auto-detect hostname: darwin-rebuild switch --flake .#darwin --impure
+      # Or set explicitly: darwin-rebuild switch --flake .#darwin
       "darwin" = nix-darwin.lib.darwinSystem (mkSystem {
         system = "aarch64-darwin";
-        hostname = "io-mbp";
+        hostname = null;  # null = auto-detect from system
         username = "georgepagarigan";
       });
       

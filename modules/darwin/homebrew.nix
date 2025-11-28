@@ -10,7 +10,8 @@
     # CLI tools that are better via homebrew on macOS
     brews = [
       "mas"  # Mac App Store CLI
-      "sketchybar"  # macOS status bar (already installed, won't reinstall)
+      # Note: sketchybar is manually managed outside nix-darwin
+      # (Cannot compile on macOS 26 beta due to outdated Xcode CLT)
     ];
     
     # GUI applications (casks)
@@ -37,9 +38,9 @@
     
     # Cleanup on activation
     onActivation = {
-      cleanup = "uninstall";  # Changed from "zap" - won't force reinstall existing packages
+      cleanup = "uninstall";  # Won't uninstall manually managed packages
       autoUpdate = true;
-      upgrade = false;  # Don't upgrade to avoid sketchybar recompile on macOS 26
+      upgrade = true;
     };
   };
 }

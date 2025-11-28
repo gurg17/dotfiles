@@ -10,7 +10,7 @@
     # CLI tools that are better via homebrew on macOS
     brews = [
       "mas"  # Mac App Store CLI
-      "sketchybar"  # macOS status bar
+      # "sketchybar"  # macOS status bar - disabled for macOS 26 beta (already installed)
     ];
     
     # GUI applications (casks)

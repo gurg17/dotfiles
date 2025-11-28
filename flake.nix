@@ -57,7 +57,7 @@
       # darwin-rebuild switch --flake .#darwin
       "darwin" = nix-darwin.lib.darwinSystem (mkSystem {
         system = "aarch64-darwin";
-        hostname = "VNJ1X7772W-George";  # Temporarily set - will be null after rebuild
+        hostname = null;  # null = keeps existing hostname (portable across machines)
         username = "georgepagarigan";
       });
       

@@ -21,16 +21,6 @@
       # Editors
       "cursor"
       
-      # Browsers
-      "brave-browser"
-      "firefox@developer-edition"
-      
-      # Productivity
-      "raycast"
-      
-      # Window Management
-      "aerospace"
-      
       # Fonts (Apple-specific)
       "font-sf-pro"
       "sf-symbols"

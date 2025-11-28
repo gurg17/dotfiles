@@ -1,4 +1,4 @@
-{ lib, ... }: {
+{ lib, pkgs, ... }: {
   # Import all home modules
   imports = [
     ./packages.nix
@@ -16,5 +16,11 @@
   
   # Disable version check warning
   home.enableNixpkgsReleaseCheck = false;
+
+  # macOS-specific: Enable GUI app installation
+  darwin = lib.mkIf pkgs.stdenv.isDarwin {
+    installApps = true;  # Symlink to /Applications/Nix Apps/
+    fullCopies = true;   # Create full copies instead of symlinks for better integration
+  };
 }
 

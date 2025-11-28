@@ -18,9 +18,29 @@
   home.enableNixpkgsReleaseCheck = false;
 
   # macOS-specific: Enable GUI app installation
-  darwin = lib.mkIf pkgs.stdenv.isDarwin {
-    installApps = true;  # Symlink to /Applications/Nix Apps/
-    fullCopies = true;   # Create full copies instead of symlinks for better integration
+  targets.darwin = lib.mkIf pkgs.stdenv.isDarwin {
+    defaults = {};  # Enable darwin target
+  };
+  
+  # Install apps to /Applications/Nix Apps/
+  home.activation = lib.mkIf pkgs.stdenv.isDarwin {
+    copyApplications = lib.hm.dag.entryAfter ["writeBoundary"] ''
+      echo "Installing applications..."
+      appsSrc="$HOME/.nix-profile/Applications"
+      if [ -d "$appsSrc" ]; then
+        baseDir="/Applications/Nix Apps"
+        sudo mkdir -p "$baseDir"
+        sudo chown $USER: "$baseDir"
+        for app in "$appsSrc"/*.app; do
+          if [ -e "$app" ]; then
+            appName=$(basename "$app")
+            echo "Copying $appName"
+            sudo rm -rf "$baseDir/$appName"
+            sudo cp -rL "$app" "$baseDir/$appName"
+          fi
+        done
+      fi
+    '';
   };
 }
 

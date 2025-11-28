@@ -59,10 +59,10 @@ cd ~/.config
 **macOS (nix-darwin):**
 ```bash
 # First time setup
-darwin-rebuild switch --flake .#io
+sudo darwin-rebuild switch --flake .#darwin
 
 # For other machines, update flake.nix with your hostname:
-# darwin-rebuild switch --flake .#<your-hostname>
+# sudo darwin-rebuild switch --flake .#<your-hostname>
 ```
 
 **Linux (home-manager):**
@@ -102,10 +102,10 @@ Primary package manager for CLI tools and development environments.
 **Update packages:**
 ```bash
 # macOS
-darwin-rebuild switch --flake .
+sudo darwin-rebuild switch --flake .#darwin
 
 # Linux  
-home-manager switch --flake .
+home-manager switch --flake .#username@linux
 ```
 
 ### Homebrew (macOS Fallback)
@@ -131,7 +131,7 @@ darwinConfigurations."new-mac" = nix-darwin.lib.darwinSystem (mkSystem {
 
 Then run:
 ```bash
-darwin-rebuild switch --flake .#new-mac
+sudo darwin-rebuild switch --flake .#new-mac
 ```
 
 ### Linux
@@ -207,6 +207,7 @@ Each major tool has its own README or config:
 - **XDG Base Directory**: Follows `~/.config` standard
 - **Git-tracked**: All configs versioned for easy restoration
 - **Nix flakes**: Requires experimental features enabled
+- **Commands**: Note that `ripgrep` is invoked as `rg`, not `ripgrep`
 
 ## 🤝 Contributing
 

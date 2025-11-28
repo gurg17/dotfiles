@@ -15,33 +15,15 @@
     
     # GUI applications (casks)
     casks = [
-      # Terminals & Editors
-      "ghostty"
+      # Editors
       "cursor"
       
-      # Browsers
-      "brave-browser"
-      "firefox@developer-edition"
-      "zen"
-      
       # Productivity
-      "raycast"
       "obsidian"
       
-      # Development
-      "beekeeper-studio"
-      
-      # Window Management
-      "aerospace"
-      
-      # Fonts
-      "font-hack-nerd-font"
-      "font-jetbrains-mono-nerd-font"
+      # Fonts (Apple-specific)
       "font-sf-pro"
       "sf-symbols"
-      
-      # Keyboard
-      "colemak-dh"
     ];
     
     # Mac App Store apps

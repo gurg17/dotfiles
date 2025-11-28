@@ -24,6 +24,20 @@
     # AI & LLM
     ollama
     
+    # GUI Applications (macOS)
+    ghostty
+    raycast
+    aerospace
+    brave
+    firefox-devedition
+    
+    # Fonts
+    nerd-fonts.hack
+    nerd-fonts.jetbrains-mono
+    
+    # Keyboard layouts
+    colemak-dh
+    
     # Other tools
     opencode
     pipx

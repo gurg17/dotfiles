@@ -24,6 +24,9 @@
       # Fonts (Apple-specific)
       "font-sf-pro"
       "sf-symbols"
+      
+      # Keyboard layouts
+      "colemak-dh"  # Linux-only in nixpkgs
     ];
     
     # Mac App Store apps

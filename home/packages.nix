@@ -34,9 +34,6 @@
     nerd-fonts.hack
     nerd-fonts.jetbrains-mono
     
-    # Keyboard layouts
-    colemak-dh
-    
     # Other tools
     opencode
     pipx

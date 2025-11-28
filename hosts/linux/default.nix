@@ -15,6 +15,7 @@
   # Linux-specific packages
   home.packages = with pkgs; [
     ghostty  # Works on Linux, broken on Darwin
+    colemak-dh  # Linux-only package
   ];
 }
 

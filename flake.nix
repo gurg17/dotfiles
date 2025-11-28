@@ -53,7 +53,7 @@
       # Example: darwin-rebuild switch --flake .#darwin
       "darwin" = nix-darwin.lib.darwinSystem (mkSystem {
         system = "aarch64-darwin";
-        hostname = "darwin";
+        hostname = "io-mbp";
         username = "georgepagarigan";
       });
       

@@ -10,16 +10,16 @@
     # CLI tools that are better via homebrew on macOS
     brews = [
       "mas"  # Mac App Store CLI
-      # "sketchybar"  # macOS status bar - disabled for macOS 26 beta (already installed)
+      "sketchybar"  # macOS status bar
     ];
     
     # GUI applications (casks)
     casks = [
+      # Terminals
+      "ghostty"  # Broken in nixpkgs on Darwin, use Homebrew instead
+      
       # Editors
       "cursor"
-      
-      # Productivity
-      "obsidian"
       
       # Fonts (Apple-specific)
       "font-sf-pro"

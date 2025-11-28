@@ -24,8 +24,7 @@
     # AI & LLM
     ollama
     
-    # GUI Applications (macOS)
-    ghostty
+    # GUI Applications (cross-platform)
     raycast
     aerospace
     brave
@@ -47,8 +46,8 @@
   programs.git = {
     enable = true;
     settings = {
-      user.name = "George Pagarigan";
-      user.email = "georgepagarigan@example.com";  # Update with your email
+      user.name = "George Luis Pagarigan";
+      user.email = "george.luis.pagarigan@gmail.com";  # Update with your email
       init.defaultBranch = "main";
       pull.rebase = true;
     };

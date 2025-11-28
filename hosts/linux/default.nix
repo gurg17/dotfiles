@@ -11,5 +11,10 @@
 
   # Allow unfree packages on Linux
   nixpkgs.config.allowUnfree = true;
+  
+  # Linux-specific packages
+  home.packages = with pkgs; [
+    ghostty  # Works on Linux, broken on Darwin
+  ];
 }
 

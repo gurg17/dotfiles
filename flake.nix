@@ -36,11 +36,11 @@
         {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
-          home-manager.users.${username} = { ... }: {
-            imports = [ ./home ];
-            home.username = username;
-            home.homeDirectory = "/Users/${username}";
-          };
+          home-manager.users.${username} = import ./home;
+          
+          # Set user info explicitly for home-manager
+          users.users.${username}.home = "/Users/${username}";
+          
           system.primaryUser = username;
           networking.hostName = hostname;
         }

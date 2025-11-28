@@ -14,24 +14,14 @@
     ];
     
     # GUI applications (casks)
-    # Note: GUI apps are managed via Homebrew casks (not Nix) on macOS
-    # for better integration, code signing, and reliability
+    # Note: brave, firefox-dev, raycast, aerospace are managed by Nix
+    # and appear in /Applications/Home Manager Apps/
     casks = [
       # Terminals
       "ghostty"
       
       # Editors
       "cursor"
-      
-      # Browsers
-      "brave-browser"
-      "firefox@developer-edition"
-      
-      # Productivity
-      "raycast"
-      
-      # Window Management
-      "aerospace"
       
       # Fonts (Apple-specific)
       "font-sf-pro"

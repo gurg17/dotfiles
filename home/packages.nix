@@ -24,6 +24,10 @@
     # AI & LLM
     ollama
     
+    # GUI Applications (cross-platform browsers)
+    brave
+    firefox-devedition
+    
     # Fonts
     nerd-fonts.hack
     nerd-fonts.jetbrains-mono
@@ -31,6 +35,11 @@
     # Other tools
     opencode
     pipx
+  ] 
+  # macOS-only GUI apps
+  ++ lib.optionals pkgs.stdenv.isDarwin [
+    raycast
+    aerospace
   ];
 
   # Git configuration

@@ -24,12 +24,6 @@
     # AI & LLM
     ollama
     
-    # GUI Applications (cross-platform)
-    raycast
-    aerospace
-    brave
-    firefox-devedition
-    
     # Fonts
     nerd-fonts.hack
     nerd-fonts.jetbrains-mono

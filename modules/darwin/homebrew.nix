@@ -10,24 +10,33 @@
     # CLI tools that are better via homebrew on macOS
     brews = [
       "mas"  # Mac App Store CLI
-      # Note: sketchybar is manually managed outside nix-darwin
-      # (Cannot compile on macOS 26 beta due to outdated Xcode CLT)
+      "sketchybar"  # macOS status bar
     ];
     
     # GUI applications (casks)
     casks = [
       # Terminals
-      "ghostty"  # Broken in nixpkgs on Darwin, use Homebrew instead
+      "ghostty"
       
       # Editors
       "cursor"
+      
+      # Browsers
+      "brave-browser"
+      "firefox@developer-edition"
+      
+      # Productivity
+      "raycast"
+      
+      # Window Management
+      "aerospace"
       
       # Fonts (Apple-specific)
       "font-sf-pro"
       "sf-symbols"
       
       # Keyboard layouts
-      "colemak-dh"  # Linux-only in nixpkgs
+      "colemak-dh"
     ];
     
     # Mac App Store apps

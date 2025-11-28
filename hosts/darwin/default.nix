@@ -26,5 +26,8 @@
 
   # Platform
   nixpkgs.hostPlatform = "aarch64-darwin";
+  
+  # Allow unfree packages globally
+  nixpkgs.config.allowUnfree = true;
 }
 

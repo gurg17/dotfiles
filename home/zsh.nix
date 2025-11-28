@@ -44,7 +44,7 @@
     ];
     
     # Additional zsh configuration
-    initExtra = ''
+    initContent = ''
       # nvm (Node Version Manager) setup
       export NVM_DIR="$HOME/.nvm"
       [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"

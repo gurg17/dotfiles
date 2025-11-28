@@ -13,8 +13,8 @@
   # These will be set by the darwin configuration
   home.username = lib.mkDefault "georgepagarigan";
   home.homeDirectory = lib.mkDefault "/Users/georgepagarigan";
-
-  # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
+  
+  # Disable version check warning
+  home.enableNixpkgsReleaseCheck = false;
 }
 

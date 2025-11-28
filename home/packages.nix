@@ -32,9 +32,9 @@
   # Git configuration
   programs.git = {
     enable = true;
-    userName = "George Pagarigan";
-    userEmail = "georgepagarigan@example.com";  # Update with your email
-    extraConfig = {
+    settings = {
+      user.name = "George Pagarigan";
+      user.email = "georgepagarigan@example.com";  # Update with your email
       init.defaultBranch = "main";
       pull.rebase = true;
     };

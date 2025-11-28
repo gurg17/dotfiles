@@ -54,11 +54,10 @@
   {
     # macOS configurations (nix-darwin)
     darwinConfigurations = {
-      # Auto-detect hostname: darwin-rebuild switch --flake .#darwin --impure
-      # Or set explicitly: darwin-rebuild switch --flake .#darwin
+      # darwin-rebuild switch --flake .#darwin
       "darwin" = nix-darwin.lib.darwinSystem (mkSystem {
         system = "aarch64-darwin";
-        hostname = null;  # null = auto-detect from system
+        hostname = "io";  # Set your desired hostname here
         username = "georgepagarigan";
       });
       

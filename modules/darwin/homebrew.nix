@@ -38,7 +38,7 @@
     
     # Cleanup on activation
     onActivation = {
-      cleanup = "uninstall";  # Won't uninstall manually managed packages
+      cleanup = "zap";
       autoUpdate = true;
       upgrade = true;
     };

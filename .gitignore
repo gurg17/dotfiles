@@ -1,1 +1,12 @@
 .env
+
+# Zsh history and cache
+zsh/.zsh_history
+zsh/.zcompdump*
+
+# Nix build results
+result
+result-*
+
+# macOS
+.DS_Store

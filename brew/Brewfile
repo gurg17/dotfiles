@@ -1,10 +1,7 @@
 # Distributed revision control system
 tap "FelixKratz/formulae"
 tap "sst/tap"
-brew "sketchybar"
-
 tap "nikitabobko/tap"
-cask "aerospace"
 
 brew "git"
 brew "nvim"
@@ -28,6 +25,7 @@ brew "akamai"
 brew "ollama"
 brew "opencode"
 brew "pnpm"
+brew "sketchybar"
 
 cask "brave-browser"
 cask "firefox@developer-edition"
@@ -41,3 +39,5 @@ cask "font-sf-pro"
 cask "sf-symbols"
 cask "colemak-dh"
 cask "claude-code"
+cask "aerospace"
+cask "cursor"

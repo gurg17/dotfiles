@@ -10,7 +10,7 @@
     # CLI tools that are better via homebrew on macOS
     brews = [
       "mas"  # Mac App Store CLI
-      # "sketchybar"  # macOS status bar - Cannot compile on macOS 26 beta (outdated CLT)
+      "sketchybar"  # macOS status bar (already installed, won't reinstall)
     ];
     
     # GUI applications (casks)
@@ -37,9 +37,9 @@
     
     # Cleanup on activation
     onActivation = {
-      cleanup = "zap";
+      cleanup = "uninstall";  # Changed from "zap" - won't force reinstall existing packages
       autoUpdate = true;
-      upgrade = true;
+      upgrade = false;  # Don't upgrade to avoid sketchybar recompile on macOS 26
     };
   };
 }

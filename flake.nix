@@ -18,10 +18,6 @@
 
   outputs = inputs@{ self, nixpkgs, nix-darwin, nix-homebrew, home-manager }:
   let
-    # Get current hostname from environment
-    # Falls back to reading from system if not set
-    currentHostname = builtins.getEnv "HOSTNAME";
-    
     # Helper function to create system configurations
     mkSystem = { system, hostname ? null, username }: {
       inherit system;
@@ -46,9 +42,12 @@
           users.users.${username}.home = "/Users/${username}";
           
           system.primaryUser = username;
-          # Use provided hostname or keep system default
-          networking.hostName = if hostname != null then hostname else currentHostname;
         }
+        # Only set hostname if explicitly provided
+        # If null, nix-darwin will keep the system's current hostname
+        (if hostname != null then {
+          networking.hostName = hostname;
+        } else {})
       ];
     };
   in
